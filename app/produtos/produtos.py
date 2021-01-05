@@ -1,9 +1,9 @@
-from flask import Blueprint, render_template, url_for, request, redirect
-from app.serealizer import ProdutosSchema, UsersSchema
-from .model import Produtos, Users, Referencia, Fabricante, Tipo
+from flask import render_template, url_for, request, redirect
 from flask_login import login_user, logout_user, login_required, current_user
-
-bp_produtos = Blueprint('produtos', __name__, template_folder='templates')
+from app.model import Produtos, Users, Referencia, Fabricante, Tipo
+from . import bp_produtos
+# Para retornar json
+# from app.serealizer import ProdutosSchema, UsersSchema
 
 @bp_produtos.route('/', methods=['GET', 'POST'])
 def index():
@@ -16,7 +16,7 @@ def index():
         user = Users.query.filter_by(nome=nome).first()
         
         if not user or user.verificar_senha(senha):
-            return redirect(url_for('index'))
+            return redirect(url_for('produtos.index'))
         
         login_user(user)
         return  redirect(url_for('sistema-produtos'))
