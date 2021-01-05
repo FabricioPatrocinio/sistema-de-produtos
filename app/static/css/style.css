@@ -1,0 +1,13 @@
+*{
+    box-sizing: border-box;
+}
+
+div.content-form{
+    max-width: 420px;
+    padding: 15px;
+}
+
+div.criar-conta{
+    max-width: 600px;
+    padding: 15px;
+}
