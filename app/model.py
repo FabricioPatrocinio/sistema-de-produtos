@@ -19,7 +19,7 @@ class Users(db.Model, UserMixin):
         self.email = email
         self.senha = generate_password_hash(senha)
     
-    def verificar_senha(self, pwd):
+    def verify_password(self, pwd):
         return check_password_hash(self.senha, pwd)
 
 class Produtos(db.Model):

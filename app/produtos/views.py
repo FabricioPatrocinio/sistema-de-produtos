@@ -1,4 +1,4 @@
-from flask import render_template, url_for, request, redirect
+from flask import render_template, url_for, flash, request, redirect
 from flask_login import login_user, logout_user, login_required, current_user
 from app.model import Produtos, Users, Referencia, Fabricante, Tipo
 # Tentar entender o porque precisei chamar essse db
@@ -11,6 +11,7 @@ from . import bp_produtos
 @bp_produtos.route('/', methods=['GET', 'POST'])
 def index():
     title = 'Login'
+    erro = ''
     
     if request.method == 'POST':
         nome = request.form['nome']
@@ -18,11 +19,16 @@ def index():
         
         user = Users.query.filter_by(nome=nome).first()
         
-        if not user or user.verificar_senha(senha):
+        if not user or not user.verify_password(senha):
+            if not user:
+                flash('Seu nome de usuário não existe ou está incorreto.')
+            
+            if user and not user.verify_password(senha):
+                flash('Sua senha está incorreta.')
+            
             return redirect(url_for('bp_produtos.index'))
         
         login_user(user)
-        print('Entrou aqui')
         return  redirect(url_for('bp_produtos.sistema_produtos'))
     
     return render_template('home.html', title=title)
@@ -34,8 +40,6 @@ def criar_conta():
     nome = ''
     email = ''
     senha = ''
-    erro = ''
-    msg = ''
     
     if request.method == 'POST':    
         nome = request.form['nome']
@@ -47,11 +51,11 @@ def criar_conta():
             db.session.add(conta)
             db.session.commit()
             
-            msg = 'Sua conta foi criada com sucesso!'
+            flash('Sua conta foi criada com sucesso!', 'sucess')
         else:
-            erro = 'Você precisa preencher todos os dados.'
+            flash('Você precisa preencher todos os dados.', 'error')
             
-    return render_template('criar-conta.html', title=title, erro=erro, msg=msg)
+    return render_template('criar-conta.html', title=title)
 
 
 # Desfazer login e retorna a page login

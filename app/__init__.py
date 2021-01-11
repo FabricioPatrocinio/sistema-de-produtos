@@ -21,7 +21,6 @@ def create_app():
     
     login_manager =  LoginManager()
     login_manager.login_view = 'bp_produtos.index'
-    login_manager.login_message = "Bonvolu ensaluti por uzi tiun paĝon."
     login_manager.init_app(app)
     
     @login_manager.user_loader

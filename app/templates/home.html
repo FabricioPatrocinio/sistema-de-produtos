@@ -16,13 +16,19 @@
     {% endif %}
   </head>
   <body>
-    <div class="container content-form">
+    <div class="container content-form mt-5">
         <form class="form-signin" method="post" action="{{ url_for('bp_produtos.index') }}">
           <div class="text-center mb-4">
-            <img class="mb-4" src="https://getbootstrap.com/docs/4.0/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
             <h1 class="h3 mb-3 font-weight-normal">Sistema de Produtos</h1>
-            <p>Criado por Fabricio Patrocinio <br> Entre em contato para saber mais <a href="#">fabricioschiffer@gmail.com</a></p>
           </div>
+          {% with erro = get_flashed_messages() %}
+            {% if erro %}
+              <div class="alert alert-danger" role="alert">
+              {{ erro[0] }}
+              {{ erro[1] }}
+              </div>
+            {% endif %}
+          {% endwith %}
 
           <div class="form-label-group">
             <input type="text" id="inputEmail" name="nome" value="{% if nome %}{{ nome }}{% endif %}" class="form-control" placeholder="Email ou usuário" required="" autofocus="">
@@ -41,7 +47,7 @@
           </div>
           <button class="btn btn-lg btn-primary btn-block" type="submit">Entrar</button>
           <hr class="mb-4">
-          <p class="text-center">Ou crie uma conta</p>
+          <p class="text-center">Ou crie uma conta para poder acessar ao sistema de produtos</p>
           <a href="{{ url_for('bp_produtos.criar_conta')}}" class="btn btn-lg btn-success btn-block">Criar conta</a>
           <p class="mt-5 mb-3 text-muted text-center">© 2020 Sistema de produtos FB</p>
         </form>
@@ -52,14 +58,6 @@
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
-    <script src="../../assets/js/vendor/popper.min.js"></script>
-    <script src="../../dist/js/bootstrap.min.js"></script>
 
     <!-- Icons -->
     <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>

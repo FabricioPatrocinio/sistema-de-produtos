@@ -26,16 +26,18 @@
     <div>
           <h4 class="mb-3">Preencha todos os dados com cuidado.</h4>
           <form class="needs-validation" action="{{ url_for('bp_produtos.criar_conta') }}" method="post">
-            {% if erro != '' %}
+          {% with msg = get_flashed_messages() %}
+            {% if  msg %}
                 <div class="alert alert-danger" role="alert">
-                {{ erro }}
+                {{ msg }}
                 </div>
-            {% elif msg != '' %}
+            {% elif msg %}
                 <div class="alert alert-success" role="alert">
                 {{ msg }}
                 </div>
                 <a href="{{ url_for('bp_produtos.index') }}" class="btn btn-primary mb-3">Fazer login</a>
             {% endif %}
+          {% endwith %}
             <div class="mb-3">
               <label for="username">Nome de usuário</label>
               <div class="input-group">
