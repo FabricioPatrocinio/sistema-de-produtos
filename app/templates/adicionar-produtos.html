@@ -1,86 +1,86 @@
 {% extends 'base.html' %}
 {% block body %}
-        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4"><div class="chartjs-size-monitor" style="position: absolute; inset: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;"><div class="chartjs-size-monitor-expand" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:1000000px;height:1000000px;left:0;top:0"></div></div><div class="chartjs-size-monitor-shrink" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:200%;height:200%;left:0; top:0"></div></div></div>
-          <h2>Adicionar produtos</h2>
-          <hr class="mb-4">
-          <div>
-            <form class="needs-validation" action="{{ url_for('adicionar_produtos') }}" method="post">
-                {% if erro != '' %}
-                    <div class="alert alert-danger" role="alert">
-                    {{ erro }}
-                    </div>
-                {% elif msg != '' %}
-                    <div class="alert alert-success" role="alert">
-                    {{ msg }}
-                    </div>
-                {% endif %}
-                <div class="row">
-                    <div class="col-md-4 mb-3">
-                        <label for="firstName">Codigo produto</label>
-                        <input type="text" class="form-control" name="cod" id="firstName" placeholder="Codigo" value="" required="">
-                    </div>
+<main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4"><div class="chartjs-size-monitor" style="position: absolute; inset: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;"><div class="chartjs-size-monitor-expand" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:1000000px;height:1000000px;left:0;top:0"></div></div><div class="chartjs-size-monitor-shrink" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:200%;height:200%;left:0; top:0"></div></div></div>
+<h2>Adicionar produtos</h2>
+    <hr class="mb-4">
+    <div>
+    <form class="needs-validation" action="{{ url_for('bp_produtos.adicionar_produtos') }}" method="post">
+        {% if erro != '' %}
+            <div class="alert alert-danger" role="alert">
+            {{ erro }}
+            </div>
+        {% elif msg != '' %}
+            <div class="alert alert-success" role="alert">
+            {{ msg }}
+            </div>
+        {% endif %}
+        <div class="row">
+            <div class="col-md-4 mb-3">
+                <label for="firstName">Codigo produto</label>
+                <input type="text" class="form-control" name="cod" id="firstName" placeholder="Codigo" value="" required="">
+            </div>
 
-                    <div class="col-md-4 mb-3">
-                        <label for="state">Referência</label>
-                        <select class="custom-select d-block w-100" name="referencia" id="state" required="">
-                        {% for ref in ref %}
-                        <option value="{{ ref.nome }}">{{ ref.nome }}</option>
-                        {% endfor %}
-                        </select>
-                    </div>
+            <div class="col-md-4 mb-3">
+                <label for="state">Referência</label>
+                <select class="custom-select d-block w-100" name="referencia" id="state" required="">
+                {% for ref in ref %}
+                <option value="{{ ref.nome }}">{{ ref.nome }}</option>
+                {% endfor %}
+                </select>
+            </div>
 
-                    <div class="col-md-4 mb-3">
-                        <label for="state">Tipo</label>
-                        <select class="custom-select d-block w-100" name="tipo" id="state" required="">
-                        {% for tip in tip %}
-                        <option value="{{ tip.nome }}">{{ tip.nome }}</option>
-                        {% endfor %}
-                        </select>
-                    </div>
-                </div>
+            <div class="col-md-4 mb-3">
+                <label for="state">Tipo</label>
+                <select class="custom-select d-block w-100" name="tipo" id="state" required="">
+                {% for tip in tip %}
+                <option value="{{ tip.nome }}">{{ tip.nome }}</option>
+                {% endfor %}
+                </select>
+            </div>
+        </div>
 
-                <div class="row">
-                    <div class="col-md-6 mb-3">
-                        <label for="firstName">Descrição</label>
-                        <input type="text" class="form-control" name="descricao" id="firstName" placeholder="Descrição" value="" required="">
-                    </div>
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label for="firstName">Descrição</label>
+                <input type="text" class="form-control" name="descricao" id="firstName" placeholder="Descrição" value="" required="">
+            </div>
 
-                    <div class="col-md-6 mb-3">
-                        <label for="firstName">Complemento</label>
-                        <input type="text" class="form-control" name="complemento" id="firstName" placeholder="Complemento" value="">
-                    </div>
-                </div>
+            <div class="col-md-6 mb-3">
+                <label for="firstName">Complemento</label>
+                <input type="text" class="form-control" name="complemento" id="firstName" placeholder="Complemento" value="">
+            </div>
+        </div>
 
-                <div class="row">
-                    <div class="col-md-4 mb-3">
-                        <label for="country">Fabricante</label>
-                        <select class="custom-select d-block w-100" name="fabricante" id="country" required="">
-                        {% for fab in fab %}
-                        <option value="{{ fab.nome }}">{{ fab.nome }}</option>
-                        {% endfor %}
-                        </select>
-                    </div>
-                </div>
+        <div class="row">
+            <div class="col-md-4 mb-3">
+                <label for="country">Fabricante</label>
+                <select class="custom-select d-block w-100" name="fabricante" id="country" required="">
+                {% for fab in fab %}
+                <option value="{{ fab.nome }}">{{ fab.nome }}</option>
+                {% endfor %}
+                </select>
+            </div>
+        </div>
 
-                <div class="row">
-                   <div class="col-md-3 mb-3">
-                        <label for="firstName">Quantidade</label>
-                        <input type="number" class="form-control" name="quant" id="firstName" placeholder="0" value="" required="">
-                    </div>
-                     <div class="col-md-3 mb-3">
-                        <label for="firstName">Custo de compra</label>
-                        <input type="number" class="form-control" name="custo" id="firstName" placeholder="R$ 0,00" value="" required="">
-                    </div>
-                     <div class="col-md-3 mb-3">
-                        <label for="firstName">Preço de venda</label>
-                        <input type="number" class="form-control" name="preco" id="firstName" placeholder="R$ 0,00" value="" required="">
-                    </div>
-                </div>
+        <div class="row">
+            <div class="col-md-3 mb-3">
+                <label for="firstName">Quantidade</label>
+                <input type="number" class="form-control" name="quant" id="firstName" placeholder="0" value="" required="">
+            </div>
+                <div class="col-md-3 mb-3">
+                <label for="firstName">Custo de compra</label>
+                <input type="number" class="form-control" name="custo" id="firstName" placeholder="R$ 0,00" value="" required="">
+            </div>
+                <div class="col-md-3 mb-3">
+                <label for="firstName">Preço de venda</label>
+                <input type="number" class="form-control" name="preco" id="firstName" placeholder="R$ 0,00" value="" required="">
+            </div>
+        </div>
 
-                <hr class="mb-4">
-                <button class="btn btn-primary btn-lg btn-block" type="submit">Adiconar Produto</button>
-            </form>
-            <p class="mt-5 mb-3 text-muted text-center">© 2020 Sistemas de produtos FB</p>
-          </div>  
-        </main>
+        <hr class="mb-4">
+        <button class="btn btn-primary btn-lg btn-block" type="submit">Adiconar Produto</button>
+    </form>
+    <p class="mt-5 mb-3 text-muted text-center">© 2020 Sistemas de produtos FB</p>
+    </div>  
+</main>
 {% endblock body  %}

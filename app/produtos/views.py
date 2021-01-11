@@ -1,10 +1,13 @@
 from flask import render_template, url_for, request, redirect
 from flask_login import login_user, logout_user, login_required, current_user
 from app.model import Produtos, Users, Referencia, Fabricante, Tipo
+# Tentar entender o porque precisei chamar essse db
+from app.model import db
 from . import bp_produtos
-# Para retornar json
+# Usar o serializer pro banco se comunicar com json e usar json pra salvar dados
 # from app.serealizer import ProdutosSchema, UsersSchema
 
+# Index como login
 @bp_produtos.route('/', methods=['GET', 'POST'])
 def index():
     title = 'Login'
@@ -16,10 +19,11 @@ def index():
         user = Users.query.filter_by(nome=nome).first()
         
         if not user or user.verificar_senha(senha):
-            return redirect(url_for('produtos.index'))
+            return redirect(url_for('bp_produtos.index'))
         
         login_user(user)
-        return  redirect(url_for('sistema-produtos'))
+        print('Entrou aqui')
+        return  redirect(url_for('bp_produtos.sistema_produtos'))
     
     return render_template('home.html', title=title)
 
@@ -54,7 +58,7 @@ def criar_conta():
 @bp_produtos.route('/logout', methods=['GET'])
 def logout():
     logout_user()    
-    return redirect(url_for('index'))
+    return redirect(url_for('bp_produtos.index'))
 
 
 @bp_produtos.route('/admin/')

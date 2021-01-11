@@ -6,6 +6,7 @@ ma = Marshmallow()
 def configure(app):
     ma.init_app(app)
 
+# Serve para retornar os objetos em json
 class ProdutosSchema(ma.Schema):
     class Meta:
         model = Produtos

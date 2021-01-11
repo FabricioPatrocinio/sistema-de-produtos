@@ -1,44 +1,44 @@
 {% extends 'base.html' %}
 {% block body %}
-        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4"><div class="chartjs-size-monitor" style="position: absolute; inset: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;"><div class="chartjs-size-monitor-expand" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:1000000px;height:1000000px;left:0;top:0"></div></div><div class="chartjs-size-monitor-shrink" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:200%;height:200%;left:0; top:0"></div></div></div>
-          <h2>Adicionar Categorias</h2>
-          <hr class="mb-4">
-          <div>
-            <form class="needs-validation" action="{{ url_for('adicionar_categorias', username=username) }}" method="post">
-                {% if erro != '' %}
-                    <div class="alert alert-danger" role="alert">
-                    {{ erro }}
-                    </div>
-                {% elif msg != '' %}
-                    <div class="alert alert-success" role="alert">
-                    {{ msg }}
-                    </div>
-                {% endif %}
-                <div class="row">
-                    <div class="col-md-4 mb-3">
-                        <label for="firstName">Referência</label>
-                        <input type="text" class="form-control" name="referencia" id="firstName" placeholder="Referência" value="">
-                    </div>
-                </div>
+<main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4"><div class="chartjs-size-monitor" style="position: absolute; inset: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;"><div class="chartjs-size-monitor-expand" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:1000000px;height:1000000px;left:0;top:0"></div></div><div class="chartjs-size-monitor-shrink" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:200%;height:200%;left:0; top:0"></div></div></div>
+    <h2>Adicionar Categorias</h2>
+    <hr class="mb-4">
+    <div>
+    <form class="needs-validation" action="{{ url_for('bp_produtos.adicionar_categorias') }}" method="post">
+        {% if erro != '' %}
+            <div class="alert alert-danger" role="alert">
+            {{ erro }}
+            </div>
+        {% elif msg != '' %}
+            <div class="alert alert-success" role="alert">
+            {{ msg }}
+            </div>
+        {% endif %}
+        <div class="row">
+            <div class="col-md-4 mb-3">
+                <label for="firstName">Referência</label>
+                <input type="text" class="form-control" name="referencia" id="firstName" placeholder="Referência" value="">
+            </div>
+        </div>
 
-                <div class="row">
-                    <div class="col-md-4 mb-3">
-                        <label for="firstName">Fabricante</label>
-                        <input type="text" class="form-control" name="fabricante" id="firstName" placeholder="Fabricante" value="">
-                    </div>
-                </div>
+        <div class="row">
+            <div class="col-md-4 mb-3">
+                <label for="firstName">Fabricante</label>
+                <input type="text" class="form-control" name="fabricante" id="firstName" placeholder="Fabricante" value="">
+            </div>
+        </div>
 
-                <div class="row">
-                    <div class="col-md-4 mb-3">
-                        <label for="firstName">Tipo</label>
-                        <input type="text" class="form-control" name="tipo" id="firstName" placeholder="Ex: Comum, Importado" value="">
-                    </div>
-                </div>
+        <div class="row">
+            <div class="col-md-4 mb-3">
+                <label for="firstName">Tipo</label>
+                <input type="text" class="form-control" name="tipo" id="firstName" placeholder="Ex: Comum, Importado" value="">
+            </div>
+        </div>
 
-                <hr class="mb-4">
-                <button class="btn btn-primary btn-lg btn-block" type="submit">Adiconar Categoria(s)</button>
-            </form>
-            <p class="mt-5 mb-3 text-muted text-center">© 2020 Sistemas de produtos FB</p>
-          </div>  
-        </main>
+        <hr class="mb-4">
+        <button class="btn btn-primary btn-lg btn-block" type="submit">Adiconar Categoria(s)</button>
+    </form>
+    <p class="mt-5 mb-3 text-muted text-center">© 2020 Sistemas de produtos FB</p>
+    </div>  
+</main>
 {% endblock body  %}

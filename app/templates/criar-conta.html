@@ -25,7 +25,7 @@
 
     <div>
           <h4 class="mb-3">Preencha todos os dados com cuidado.</h4>
-          <form class="needs-validation" action="{{ url_for('criar_conta') }}" method="post">
+          <form class="needs-validation" action="{{ url_for('bp_produtos.criar_conta') }}" method="post">
             {% if erro != '' %}
                 <div class="alert alert-danger" role="alert">
                 {{ erro }}
@@ -34,7 +34,7 @@
                 <div class="alert alert-success" role="alert">
                 {{ msg }}
                 </div>
-                <a href="{{ url_for('index', username=username) }}" class="btn btn-primary mb-3">Fazer login</a>
+                <a href="{{ url_for('bp_produtos.index') }}" class="btn btn-primary mb-3">Fazer login</a>
             {% endif %}
             <div class="mb-3">
               <label for="username">Nome de usuário</label>
@@ -42,7 +42,7 @@
                 <div class="input-group-prepend">
                   <span class="input-group-text">@</span>
                 </div>
-                <input type="text" class="form-control" name="username" id="username" placeholder="Nome de usuário" required="">
+                <input type="text" class="form-control" name="nome" id="nome" placeholder="Nome de usuário" required="">
               </div>
               <label for="lembrete">O seu nome de usuário não pode ter espaços e letras maiúsculas. Ex: <code>usuarionome, usuario-nome</code></label>
             </div>

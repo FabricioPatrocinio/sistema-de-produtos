@@ -16,10 +16,11 @@
     {% endif %}
   </head>
   <body>
-    <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0">
+    <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-2">
       <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">
-      {% if usenome %}
-        {{ usenome }}
+      <img src="{{ url_for('static', filename='img/icons/user.svg') }}" alt="">
+      {% if current_user.nome %}
+        {{ current_user.nome }}
       {% else %}
         Nenhum usuario
       {% endif %}
@@ -27,7 +28,10 @@
       <input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search">
       <ul class="navbar-nav px-3">
         <li class="nav-item text-nowrap">
-          <a class="nav-link" href="{{ url_for('logout') }}">Sair da Conta</a>
+          <a class="btn btn-sm btn-outline-danger" href="{{ url_for('bp_produtos.logout') }}">
+          <img src="{{ url_for('static', filename='img/icons/user-x.svg') }}" alt="">
+          Sair da Conta
+          </a>
         </li>
       </ul>
     </nav>
@@ -38,13 +42,13 @@
           <div class="sidebar-sticky">
             <ul class="nav flex-column">
               <li class="nav-item">
-                <a class="nav-link active" href="{{ url_for('sistema_produtos') }}">
+                <a class="nav-link active" href="{{ url_for('bp_produtos.sistema_produtos') }}">
                   <img src="{{ url_for('static', filename='img/icons/home.svg') }}" alt="">
                   Inicio <span class="sr-only">(current)</span>
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="{{ url_for('adicionar_produtos') }}">
+                <a class="nav-link" href="{{ url_for('bp_produtos.adicionar_produtos') }}">
                   <img src="{{ url_for('static', filename='img/icons/plus-circle.svg') }}" alt="">                  
                   Adicionar produto
                 </a>
@@ -62,13 +66,13 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="{{ url_for('produtos_em_falta')}}">
+                <a class="nav-link" href="{{ url_for('bp_produtos.produtos_em_falta')}}">
                   <img src="{{ url_for('static', filename='img/icons/trending-down.svg') }}" alt="">
                   Produtos em falta
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="{{ url_for('adicionar_categorias') }}">
+                <a class="nav-link" href="{{ url_for('bp_produtos.adicionar_categorias') }}">
                   <img src="{{ url_for('static', filename='img/icons/edit.svg') }}" alt="">
                   Adicionar Categorias
                 </a>

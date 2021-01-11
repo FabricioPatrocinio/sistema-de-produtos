@@ -17,7 +17,7 @@
   </head>
   <body>
     <div class="container content-form">
-        <form class="form-signin" method="post" action="{{ url_for('index') }}">
+        <form class="form-signin" method="post" action="{{ url_for('bp_produtos.index') }}">
           <div class="text-center mb-4">
             <img class="mb-4" src="https://getbootstrap.com/docs/4.0/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
             <h1 class="h3 mb-3 font-weight-normal">Sistema de Produtos</h1>
@@ -42,7 +42,7 @@
           <button class="btn btn-lg btn-primary btn-block" type="submit">Entrar</button>
           <hr class="mb-4">
           <p class="text-center">Ou crie uma conta</p>
-          <a href="{{ url_for('criar_conta')}}" class="btn btn-lg btn-success btn-block">Criar conta</a>
+          <a href="{{ url_for('bp_produtos.criar_conta')}}" class="btn btn-lg btn-success btn-block">Criar conta</a>
           <p class="mt-5 mb-3 text-muted text-center">© 2020 Sistema de produtos FB</p>
         </form>
     </div>
