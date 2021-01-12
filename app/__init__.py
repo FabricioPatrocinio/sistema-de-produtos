@@ -27,6 +27,9 @@ def create_app():
     def load_user(user_id):
         return Users.query.filter_by(id=user_id).first()
     
+    from .auth import bp_auth
+    app.register_blueprint(bp_auth)
+    
     from .produtos import bp_produtos
     app.register_blueprint(bp_produtos)
     
