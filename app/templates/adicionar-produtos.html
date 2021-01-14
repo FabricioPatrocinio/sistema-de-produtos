@@ -1,19 +1,84 @@
 {% extends 'base.html' %}
 {% block body %}
 <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4"><div class="chartjs-size-monitor" style="position: absolute; inset: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;"><div class="chartjs-size-monitor-expand" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:1000000px;height:1000000px;left:0;top:0"></div></div><div class="chartjs-size-monitor-shrink" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:200%;height:200%;left:0; top:0"></div></div></div>
-<h2>Adicionar produtos</h2>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h2>Adicionar produtos</h2>
+            </div>
+            <div class="col-md-2">
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                    Adicionar Categorias
+                </button>
+
+                <!-- Modal -->
+                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Adicionar categorias</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form class="needs-validation" action="{{ url_for('bp_produtos.adicionar_categorias') }}" method="post">
+                            {% with messages = get_flashed_messages(with_categories=true) %}
+                                {% if messages %}
+                                    {% for category, message in messages %}
+                                    <div class="alert alert-{{ category }}" role="alert">
+                                        {{ message }}
+                                    </div>
+                                    {% endfor %}
+                                {% endif %}
+                            {% endwith %}
+
+                            <div class="row">
+                                <div class="col mb-3">
+                                    <label for="firstName">Referência</label>
+                                    <input type="text" class="form-control" name="referencia" id="firstName" placeholder="Referência" value="">
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col mb-3">
+                                    <label for="firstName">Fabricante</label>
+                                    <input type="text" class="form-control" name="fabricante" id="firstName" placeholder="Fabricante" value="">
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col mb-3">
+                                    <label for="firstName">Tipo</label>
+                                    <input type="text" class="form-control" name="tipo" id="firstName" placeholder="Ex: Comum, Importado" value="">
+                                </div>
+                            </div>
+
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                                <button type="submit" class="btn btn-primary">Salvar categorias</button>
+                            </div>
+                        </form>
+                    </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <hr class="mb-4">
     <div>
     <form class="needs-validation" action="{{ url_for('bp_produtos.adicionar_produtos') }}" method="post">
-        {% if erro != '' %}
-            <div class="alert alert-danger" role="alert">
-            {{ erro }}
-            </div>
-        {% elif msg != '' %}
-            <div class="alert alert-success" role="alert">
-            {{ msg }}
-            </div>
-        {% endif %}
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                <div class="alert alert-{{ category }}" role="alert">
+                    {{ message }}
+                </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
         <div class="row">
             <div class="col-md-4 mb-3">
                 <label for="firstName">Codigo produto</label>
@@ -52,7 +117,7 @@
         </div>
 
         <div class="row">
-            <div class="col-md-4 mb-3">
+            <div class="col-md-3 mb-3">
                 <label for="country">Fabricante</label>
                 <select class="custom-select d-block w-100" name="fabricante" id="country" required="">
                 {% for fab in fab %}
@@ -60,26 +125,25 @@
                 {% endfor %}
                 </select>
             </div>
-        </div>
 
-        <div class="row">
             <div class="col-md-3 mb-3">
                 <label for="firstName">Quantidade</label>
                 <input type="number" class="form-control" name="quant" id="firstName" placeholder="0" value="" required="">
             </div>
-                <div class="col-md-3 mb-3">
+            <div class="col-md-3 mb-3">
                 <label for="firstName">Custo de compra</label>
                 <input type="number" class="form-control" name="custo" id="firstName" placeholder="R$ 0,00" value="" required="">
             </div>
-                <div class="col-md-3 mb-3">
+            <div class="col-md-3 mb-3">
                 <label for="firstName">Preço de venda</label>
                 <input type="number" class="form-control" name="preco" id="firstName" placeholder="R$ 0,00" value="" required="">
             </div>
         </div>
-
         <hr class="mb-4">
+
         <button class="btn btn-primary btn-lg btn-block" type="submit">Adiconar Produto</button>
     </form>
+    <hr class="mb-4 mt-4">
     <p class="mt-5 mb-3 text-muted text-center">© 2020 Sistemas de produtos FB</p>
     </div>  
 </main>

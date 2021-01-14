@@ -11,3 +11,7 @@ div.criar-conta{
     max-width: 600px;
     padding: 15px;
 }
+
+div.modal-content-width{
+    max-width: 800px;
+}

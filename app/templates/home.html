@@ -32,14 +32,14 @@
             {% endif %}
           {% endwith %}
 
-          <div class="form-label-group">
-            <input type="text" id="inputEmail" name="nome" value="{% if nome %}{{ nome }}{% endif %}" class="form-control" placeholder="Email ou usuário" required="" autofocus="">
-            <label for="inputEmail">Seu email ou nome de usuário</label>
+          <div class="form-label-group mb-3">
+            <input type="text" id="inputEmail" name="nome" value="{% if nome %}{{ nome }}{% endif %}" class="form-control form-control-lg" placeholder="Email ou usuário" required="" autofocus="">
+            <small id="emailHelp" class="form-text text-muted">Seu nome não pode conter espaços</small>
           </div>
 
-          <div class="form-label-group">
-            <input type="password" id="inputPassword" name="senha" value="{% if senha %}{{ senha }}{% endif %}" class="form-control" placeholder="Senha" required="">
-            <label for="inputPassword">Sua senha</label>
+          <div class="form-label-group mb-3">
+            <input type="password" id="inputPassword" name="senha" value="{% if senha %}{{ senha }}{% endif %}" class="form-control form-control-lg" placeholder="Senha" required="">
+            <small id="emailHelp" class="form-text text-muted">Sua senha tem máximo 8 dígitos</small>
           </div>
 
           <div class="checkbox mb-3">

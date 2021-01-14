@@ -12,7 +12,6 @@ from . import bp_auth
 @bp_auth.route('/login', methods=['GET', 'POST'])
 def index():
     title = 'Login'
-    erro = ''
     
     if request.method == 'POST':
         nome = request.form['nome']

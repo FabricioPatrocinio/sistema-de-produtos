@@ -28,8 +28,7 @@
       <input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search">
       <ul class="navbar-nav px-3">
         <li class="nav-item text-nowrap">
-          <a class="btn btn-sm btn-outline-danger" href="{{ url_for('bp_auth.logout') }}">
-          <img src="{{ url_for('static', filename='img/icons/user-x.svg') }}" alt="">
+          <a class="btn btn-outline-danger" href="{{ url_for('bp_auth.logout') }}">
           Sair da Conta
           </a>
         </li>
@@ -42,8 +41,8 @@
           <div class="sidebar-sticky">
             <ul class="nav flex-column">
               <li class="nav-item">
-                <a class="nav-link active" href="{{ url_for('bp_produtos.sistema_produtos') }}">
-                  <img src="{{ url_for('static', filename='img/icons/home.svg') }}" alt="">
+                <a class="nav-link active" href="{{ url_for('bp_produtos.sistema_produtos', filtro=123) }}">
+                  <img src="{{ url_for('static', filename='img/icons/home.svg') }}" class="svg-color" alt="">
                   Inicio <span class="sr-only">(current)</span>
                 </a>
               </li>
@@ -72,9 +71,9 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="{{ url_for('bp_produtos.adicionar_categorias') }}">
+                <a class="nav-link" href="#editar-perfil">
                   <img src="{{ url_for('static', filename='img/icons/edit.svg') }}" alt="">
-                  Adicionar Categorias
+                  Editar perfil
                 </a>
               </li>
             </ul>
