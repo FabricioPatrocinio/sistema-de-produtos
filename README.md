@@ -6,8 +6,8 @@ Usando Python com Flask
 Bem a idéia consiste em um sistema de cadastro de produtos com uma interface fácil de usar e totalmente funcional. Que possa ser usado em diferentes areas de trabalho. Estou fazendo atrelado aos estudos de **python** com **flask**, então o processo vai ser lento.
 
 ### Dependências usadas
-As dependências que usei se encontram no **_requirements.txt_**
-Para instalar use o comando
+As dependências que usei se encontram no **_requirements.txt_**.
+Para instalar use o comando:
 ```
 pip install -r requirements.txt
 ```
@@ -20,13 +20,13 @@ flask db upgrade
 ```
 
 ### Rodar o projeto
-Dentro da pasta raiz rode esse comando
+Dentro da pasta raiz rode esse comando:
 ```
 flask run (Para rodar o servidor)
 ```
 
 ### Rotas ou endpoints
-Estou usando o Blueprint para criar os endpoints
+Estou usando o Blueprint para criar os endpoints.
 Para ver todas as rotas rode o comando:
 ```
 flask routes
