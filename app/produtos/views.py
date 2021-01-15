@@ -69,9 +69,7 @@ def adicionar_produtos():
 
 
 @bp_produtos.route('/deletar/produto/<int:id>', methods=['GET', 'POST'])
-def deletar(id):
-    title = 'Delete'
-    
+def deletar(id):    
     result = Produtos.query.filter_by(id=id).first()
     
     db.session.delete(result)
@@ -83,9 +81,7 @@ def deletar(id):
 
 
 @bp_produtos.route('/alterar/produto/<int:id>', methods=['GET', 'POST'])
-def alterar(id):
-    title = 'Alterar'
-    
+def alterar(id):    
     result = Produtos.query.filter_by(id=id).first()
     
     result.cod = request.form['cod']
@@ -105,9 +101,17 @@ def alterar(id):
     return redirect(url_for('bp_produtos.sistema_produtos'))
 
 
+@bp_produtos.route('/produtos-em-falta', methods=['GET', 'POST'])
+def produtos_em_falta():
+    title = 'Produtos em falta'
+    # Pega produtos com quantidade igual a ZERO
+    result = Produtos.query.filter(db.or_((Produtos.quant <= 2))).all()
+    
+    return render_template('produtos-em-falta.html', title=title, result=result)
+
+
 @bp_produtos.route('/adicionar-categorias', methods=['GET', 'POST'])
 def adicionar_categorias():
-    # title = 'Adicionar categorias'
     
     if request.method == 'POST' and request.form['referencia'] != '':
         referencia = request.form['referencia']
@@ -140,10 +144,71 @@ def adicionar_categorias():
     return redirect(url_for('bp_produtos.adicionar_produtos'))
 
 
-@bp_produtos.route('/produtos-em-falta', methods=['GET', 'POST'])
-def produtos_em_falta():
-    title = 'Produtos em falta'
-    # Pega produtos com quantidade igual a ZERO
-    result = Produtos.query.filter(db.or_((Produtos.quant <= 2))).all()
+@bp_produtos.route('/editar-categorias/', methods=['GET', 'POST'])
+def editar_categorias():
+    title = 'Editar categorias'
     
-    return render_template('produtos-em-falta.html', title=title, result=result)
+    db_ref = Referencia.query.all()
+    db_fab = Fabricante.query.all()
+    db_tip = Tipo.query.all()
+    
+    return render_template('editar-categorias.html', title=title, db_ref=db_ref, db_fab=db_fab, db_tip=db_tip)
+
+@bp_produtos.route('/deletar-categoria/<categoria>/<int:id>', methods=['GET', 'POST'])
+def deletar_categoria(categoria, id):
+    cat_nome = ''
+    
+    if categoria == 'Referencia':
+        db_ref = Referencia.query.filter_by(id=id).first()
+    
+        db.session.delete(db_ref)
+        db.session.commit()
+        cat_nome = 'Referencia'
+    
+    if categoria == 'Fabricante':
+        db_fab = Fabricante.query.filter_by(id=id).first()
+    
+        db.session.delete(db_fab)
+        db.session.commit()
+        cat_nome = 'Fabricante'
+    
+    if categoria == 'Tipo':
+        db_tip = Tipo.query.filter_by(id=id).first()
+    
+        db.session.delete(db_tip)
+        db.session.commit()
+        cat_nome = 'Tipo'
+    
+    flash(cat_nome + ' deletado com sucesso', 'success')
+    
+    return redirect(url_for('bp_produtos.editar_categorias'))
+
+
+@bp_produtos.route('/alterar/<categoria>/<int:id>', methods=['GET', 'POST'])
+def alterar_categoria(categoria, id):
+    nome_cat = ''
+    
+    if categoria == 'Referencia':
+        db_ref = Referencia.query.filter_by(id=id).first()
+        db_ref.nome = request.form['referencia']
+        
+        db.session.commit()
+        nome_cat = 'Referencia'
+    
+    if categoria == 'Fabricante':
+        db_fab = Fabricante.query.filter_by(id=id).first()
+        db_fab.nome = request.form['fabricante']
+        
+        db.session.commit()
+        nome_cat = 'Fabricante'
+    
+    if categoria == 'Tipo':
+        db_tip = Tipo.query.filter_by(id=id).first()
+        db_tip.nome = request.form['tipo']
+        
+        db.session.commit()
+        nome_cat = 'Tipo'
+    
+    flash('Categoria '+ nome_cat + ' alterada com sucesso!', 'success')
+    
+    return redirect(url_for('bp_produtos.editar_categorias'))
