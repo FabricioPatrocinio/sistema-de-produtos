@@ -15,3 +15,8 @@ div.criar-conta{
 div.modal-content-width{
     max-width: 800px;
 }
+
+.menu-ico{
+    width: 30px;
+    padding-right: 5px;
+}

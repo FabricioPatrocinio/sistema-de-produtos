@@ -18,7 +18,7 @@
   <body>
     <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-2">
       <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">
-      <img src="{{ url_for('static', filename='img/icons/user.svg') }}" alt="">
+      <img src="{{ url_for('static', filename='img/icons/user.png') }}" alt="">
       {% if current_user.nome %}
         {{ current_user.nome }}
       {% else %}
@@ -42,37 +42,37 @@
             <ul class="nav flex-column">
               <li class="nav-item">
                 <a class="nav-link active" href="{{ url_for('bp_produtos.sistema_produtos', filtro=123) }}">
-                  <img src="{{ url_for('static', filename='img/icons/home.svg') }}" class="svg-color" alt="">
+                  <img src="{{ url_for('static', filename='img/icons/home.png') }}" class="menu-ico" alt="">
                   Inicio <span class="sr-only">(current)</span>
                 </a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="{{ url_for('bp_produtos.adicionar_produtos') }}">
-                  <img src="{{ url_for('static', filename='img/icons/plus-circle.svg') }}" alt="">                  
+                  <img src="{{ url_for('static', filename='img/icons/add.png') }}" class="menu-ico" alt="">                  
                   Adicionar produto
                 </a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="#">
-                  <img src="{{ url_for('static', filename='img/icons/trash-2.svg') }}" alt="">
+                  <img src="{{ url_for('static', filename='img/icons/delete.png') }}" class="menu-ico" alt="">
                   Remover
                 </a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="#">
-                  <img src="{{ url_for('static', filename='img/icons/settings.svg') }}" alt="">
+                  <img src="{{ url_for('static', filename='img/icons/settings.png') }}" class="menu-ico" alt="">
                   Configurações
                 </a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="{{ url_for('bp_produtos.produtos_em_falta')}}">
-                  <img src="{{ url_for('static', filename='img/icons/trending-down.svg') }}" alt="">
+                  <img src="{{ url_for('static', filename='img/icons/down-line-graphic.png') }}" class="menu-ico" alt="">
                   Produtos em falta
                 </a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="{{ url_for('bp_produtos.editar_categorias') }}">
-                  <img src="{{ url_for('static', filename='img/icons/edit.svg') }}" alt="">
+                  <img src="{{ url_for('static', filename='img/icons/edit.png') }}" class="menu-ico" alt="">
                   Editar categorias
                 </a>
               </li>
@@ -81,25 +81,25 @@
             <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
               <span>Banco de dados</span>
               <a class="d-flex align-items-center text-muted" href="#">
-                <img src="{{ url_for('static', filename='img/icons/database.svg') }}" alt="">
+                <img src="{{ url_for('static', filename='img/icons/database.svg') }}" class="menu-ico" alt="">
               </a>
             </h6>
             <ul class="nav flex-column mb-2">
               <li class="nav-item">
                 <a class="nav-link" href="#">
-                  <img src="{{ url_for('static', filename='img/icons/save.svg') }}" alt="">
+                  <img src="{{ url_for('static', filename='img/icons/backup.png') }}" class="menu-ico" alt="">
                   Fazer Backup
                 </a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="#">
-                  <img src="{{ url_for('static', filename='img/icons/download-cloud.svg') }}" alt="">
+                  <img src="{{ url_for('static', filename='img/icons/file.png') }}" class="menu-ico" alt="">
                   Restaurar Backup
                 </a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="#">
-                  <img src="{{ url_for('static', filename='img/icons/activity.svg') }}" alt="">
+                  <img src="{{ url_for('static', filename='img/icons/line-chart.png') }}" class="menu-ico" alt="">
                   Ultimos Buckups
                 </a>
               </li>
