@@ -20,7 +20,7 @@
         <form class="form-signin" method="post" action="{{ url_for('bp_auth.index') }}">
           <div class="text-center mb-4">
             <h1 class="display-5 text-success mb-3 font-weight-normal">Faça Login</h1>
-            <p class="lead text-muted">Faça login para ter acesso ao sistema de produtos ou crie uma conta.</p>
+            <p class="text-muted">Faça login para ter acesso ao sistema de produtos ou crie uma conta.</p>
           </div>
           {% with messages = get_flashed_messages(with_categories=true) %}
             {% if messages %}
@@ -49,9 +49,9 @@
           </div>
           <button class="btn btn-lg btn-primary btn-block" type="submit">Entrar</button>
           <hr class="mb-4">
-          <p class="text-center text-muted">Não tem conta? <br> Crie uma conta para poder acessar ao sistema de produtos</p>
+          <p class="text-center text-muted">Não tem conta? Crie uma conta para poder acessar ao sistema de produtos</p>
           <a href="{{ url_for('bp_auth.criar_conta')}}" class="btn btn-lg btn-success btn-block">Criar conta</a>
-          <p class="mt-5 mb-3 text-muted text-center">© 2020 Sistema de produtos FB</p>
+          <p class="mt-5 mb-3 text-muted text-center">© 2020 Sistema de produtos Fabricio Patrocinio</p>
         </form>
     </div>
 

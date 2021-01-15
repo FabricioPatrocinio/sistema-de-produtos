@@ -19,21 +19,21 @@
     <div class="container criar-conta">
       <div class="py-5 text-center">
           <h2 class="display-4 text-success">Crie sua conta</h2>
-          <p class="lead text-muted">Ao criar sua conta você poderá adicionar produtos.</p>
+          <p class="text-muted">Ao criar sua conta você poderá adicionar produtos.</p>
       </div>
 
       <div>
-        <h4 class="mb-3 text-danger">Preencha todos os dados com cuidado.</h4>
+        <p class="text-danger">Preencha todos os dados com cuidado.</p>
         <form class="needs-validation" action="{{ url_for('bp_auth.criar_conta') }}" method="post">
         {% with messages = get_flashed_messages(with_categories=true) %}
           {% if  messages %}
             {% for category, message in messages %}
               <div class="alert alert-{{ category }}" role="alert">
-                  {{ message }}
-                  {% if category == 'success' %}
-                    <a href="{{ url_for('bp_auth.index')}}" class="btn btn btn-primary btn-block">Faça login</a>
-                  {% endif %}
+                {{ message }}
               </div>
+              {% if category == 'success' %}
+                <a href="{{ url_for('bp_auth.index')}}" class="btn btn-lg btn-primary btn-block mb-3">Faça login</a>
+              {% endif %}
             {% endfor %}
           {% endif %}
         {% endwith %}
@@ -48,7 +48,7 @@
           </div>
 
           <div class="mb-3">
-            <label for="senha">Crie sua senha</label>
+            <label for="senha">Crie uma senha</label>
             <input type="password" name="senha" class="form-control mb-3" id="email" placeholder="Senha">
             <input type="password" name="confir-senha" class="form-control" id="email" placeholder="Confirmar senha">
             <small id="emailHelp" class="form-text text-muted">Sua senha deve conter de 6 a 8 caracteres.</small>
@@ -56,14 +56,17 @@
 
           <div class="mb-3">
             <label for="email">Email <span class="text-muted">(Opcional)</span></label>
-            <input type="email" class="form-control" name="email" id="email" placeholder="you@example.com">
+            <input type="email" class="form-control" name="email" id="email" placeholder="voce@exemplo.com">
             <small id="emailHelp" class="form-text text-muted">Seu email servirá para recuperar sua senha caso venha esquecer.</small>
           </div>
 
-          <hr class="mb-4">
           <button class="btn btn-success btn-lg btn-block" type="submit">Criar Conta</button>
         </form>
-        <p class="mt-5 mb-3 text-muted text-center">© 2020 Sistemas de produtos FB</p>
+
+        <hr class="mb-4 mt-4">
+        <p class="text-center text-muted">Já possui conta? faça login.</p>
+        <a href="{{ url_for('bp_auth.index')}}" class="btn btn-lg btn-primary btn-block">Fazer login</a>
+        <p class="mt-5 mb-3 text-muted text-center">© 2020 Sistemas de produtos Fabricio Patrocinio</p>
       </div>
     </div>
 
