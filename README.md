@@ -47,6 +47,12 @@ Aqui estão alguns dos principais
 - [x] /sistema-produtos/filtro/<filtro>
 - [ ] Brevemente mais
 
+### Alterar cores bootstrap 4 usando SASS
+Comando:
+```
+sass app/static/css/style.scss app/static/css/style.css (normal) 
+node-sass --watch app/static/css/style.scss app/static/css/style.css --output-style compressed (compreessado) 
+``` 
 Cores pra usar
 80ffdb
 72efdd

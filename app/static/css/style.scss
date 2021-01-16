@@ -1,0 +1,35 @@
+$theme-colors: (
+  "primary": #5390d9,
+  "success": #48bfe3,
+  "dark": #5e60ce,
+  "danger": #ef4363
+);
+
+.thead-dark{
+    background: #5e60ce;
+}
+
+@import '../node_modules/bootstrap/scss/bootstrap.scss';
+
+*{
+    box-sizing: border-box;
+}
+
+div.content-form{
+    max-width: 420px;
+    padding: 15px;
+}
+
+div.criar-conta{
+    max-width: 600px;
+    padding: 15px;
+}
+
+div.modal-content-width{
+    max-width: 800px;
+}
+
+.menu-ico{
+    width: 30px;
+    padding-right: 5px;
+}
