@@ -33,4 +33,7 @@ def create_app():
     from .produtos import bp_produtos
     app.register_blueprint(bp_produtos)
     
+    # Para testes no celular
+    # É preciso usar o IPV4 como host
+    # app.run(debug=True, host= '192.168.100.78', port=5000)
     return app
