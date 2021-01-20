@@ -1,5 +1,6 @@
 from flask import render_template, url_for, flash, request, redirect
 from flask_login import login_user, logout_user, login_required, current_user
+from sqlalchemy.exc import IntegrityError
 from app.model import Users
 # Tentar entender o porque precisei chamar essse db
 from app.model import db
@@ -46,15 +47,19 @@ def criar_conta():
         email = request.form['email']
         senha = request.form['senha']
         
-        if nome != '' and email != '' and senha != '':
-            conta = Users(nome, email, senha)
-            db.session.add(conta)
-            db.session.commit()
-            
-            flash('Sua conta foi criada com sucesso!', 'success')
-        else:
-            flash('Você precisa preencher todos os dados.', 'danger')
-            
+        try:
+            if nome != '' and email != '' and senha != '':
+                conta = Users(nome, email, senha)
+                db.session.add(conta)
+                db.session.commit()
+                
+                flash('Sua conta foi criada com sucesso!', 'success')
+            else:
+                flash('Você precisa preencher todos os dados.', 'danger')
+        except IntegrityError:
+            db.session.rollback()
+            flash('Usuário ou email já estão cadastrado, por favor use outros.', 'danger')
+        
     return render_template('criar-conta.html', title=title)
 
 
