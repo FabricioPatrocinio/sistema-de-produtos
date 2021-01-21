@@ -8585,8 +8585,12 @@ div.modal-content-width {
 }
 
 .menu-ico {
-  width: 30px;
+  width: 25px;
   padding-right: 5px;
+}
+
+.icons-social {
+  width: 25px;
 }
 
 /*# sourceMappingURL=style.css.map */

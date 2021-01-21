@@ -1,6 +1,7 @@
 from flask import render_template, url_for, flash, request, redirect
 from flask_login import login_user, logout_user, login_required, current_user
 from app.model import Produtos, Referencia, Fabricante, Tipo
+from random import sample
 # Tentar entender o porque precisei chamar essse db
 from app.model import db
 from . import bp_produtos
@@ -41,8 +42,7 @@ def adicionar_produtos():
     # Gera a lista de categorias do <select> no HTML    
     ref = Referencia.query.all()
     fab = Fabricante.query.all()
-    tip = Tipo.query.all()
-    
+    tip = Tipo.query.all()    
     
     if request.method == 'POST' and request.form['cod'] != '' and request.form['referencia'] != '' and request.form['descricao'] != '' and request.form['tipo'] != '':
         cod = request.form['cod']

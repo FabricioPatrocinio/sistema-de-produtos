@@ -24,7 +24,7 @@ class Users(db.Model, UserMixin):
 
 class Produtos(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    cod = db.Column(db.Integer, nullable=True)
+    cod = db.Column(db.Integer, nullable=True, unique=True)
     descricao = db.Column(db.String(50), nullable=False)
     complemento = db.Column(db.String(255))
     referencia = db.Column(db.String(50))

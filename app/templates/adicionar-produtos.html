@@ -1,6 +1,16 @@
 {% extends 'base.html' %}
 {% block body %}
-<main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4"><div class="chartjs-size-monitor" style="position: absolute; inset: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;"><div class="chartjs-size-monitor-expand" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:1000000px;height:1000000px;left:0;top:0"></div></div><div class="chartjs-size-monitor-shrink" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:200%;height:200%;left:0; top:0"></div></div></div>
+<main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+<div class="chartjs-size-monitor" style="position: absolute; inset: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;">
+    <div class="chartjs-size-monitor-expand" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;">
+        <div style="position:absolute;width:1000000px;height:1000000px;left:0;top:0">
+        </div>
+    </div>
+    <div class="chartjs-size-monitor-shrink" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;">
+        <div style="position:absolute;width:200%;height:200%;left:0; top:0">
+        </div>
+    </div>
+</div>
     <div class="container">
         <div class="d-flex justify-content-between">
             <div>
@@ -9,16 +19,16 @@
             <div>
                 <!-- Button trigger modal -->
                 <button type="button" class="btn btn-primary text-white" data-toggle="modal" data-target="#exampleModal">
-                    Nova Categorias
+                Nova Categorias
                 </button>
 
                 <!-- Modal -->
                 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
-                    <div class="modal-header">
+                    <div class="modal-header bg-primary text-white">
                         <h5 class="modal-title" id="exampleModalLabel">Adicionar categorias</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
@@ -55,7 +65,7 @@
                                 </div>
                             </div>
 
-                            <div class="modal-footer">
+                            <div class="modal-footer d-flex justify-content-between">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
                                 <button type="submit" class="btn btn-primary">Salvar categorias</button>
                             </div>
@@ -82,7 +92,7 @@
         <div class="row">
             <div class="col-md-4 mb-3">
                 <label for="firstName">Codigo produto</label>
-                <input type="text" class="form-control" name="cod" id="firstName" placeholder="Codigo" value="" required="">
+                <input type="number" class="form-control" name="cod" id="firstName" placeholder="Codigo" value="" required="">
             </div>
 
             <div class="col-md-4 mb-3">
@@ -141,8 +151,22 @@
         </div>
         <button class="btn btn-success text-white btn-lg btn-block mt-4" type="submit">Adiconar Produto</button>
     </form>
-    <p class="mt-5 text-muted text-center">© 2020 Sistemas de produtos Fabricio Patrocinio</p>
-    <p class="mb-5 text-muted text-center font-italic">Icones usados de <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a></p>
     </div>  
+    <footer class="p-5">
+        <p class="text-muted text-center">© 2020 Sistemas de produtos Fabricio Patrocinio</p>
+        <div class="d-flex justify-content-center">
+            <a href="" class="ml-3 mr-3 icons-social">
+            <img src="{{ url_for('static', filename='img/icons/facebook.png') }}" alt="">
+            </a>
+            <a href="" class="ml-3 mr-3 icons-social">
+            <img src="{{ url_for('static', filename='img/icons/instagram.png') }}" alt="">
+            </a>
+            <a href="" class="ml-3 mr-3 icons-social">
+            <img src="{{ url_for('static', filename='img/icons/github.png') }}" alt="">
+            </a>
+        </div>
+        <p class="text-muted text-center mt-2"><small class="text-muted">Todo o projeto do sistema no meu Github</small></p>
+        <p class="text-muted text-center mt-2"><small class="text-muted">Icones usados de <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a></small></p>
+    </footer>
 </main>
-{% endblock body  %}
+{% endblock body %}

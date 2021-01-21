@@ -46,14 +46,18 @@ def criar_conta():
         nome = request.form['nome']
         email = request.form['email']
         senha = request.form['senha']
+        confirmar_senha = request.form['confirmar-senha']
         
         try:
             if nome != '' and email != '' and senha != '':
-                conta = Users(nome, email, senha)
-                db.session.add(conta)
-                db.session.commit()
-                
-                flash('Sua conta foi criada com sucesso!', 'success')
+                if confirmar_senha == senha:
+                    conta = Users(nome, email, senha)
+                    db.session.add(conta)
+                    db.session.commit()
+                    
+                    flash('Sua conta foi criada com sucesso. Faça login!', 'success')
+                else:
+                    flash('Suas senhas não coincidem, por favor crie sua senha e confirme-a.', 'danger')
             else:
                 flash('Você precisa preencher todos os dados.', 'danger')
         except IntegrityError:

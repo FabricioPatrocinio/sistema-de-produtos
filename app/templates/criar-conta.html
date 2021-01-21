@@ -3,6 +3,7 @@
   <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
+    <meta name="theme-color" content="#5e60ce">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
@@ -29,7 +30,7 @@
                 {{ message }}
               </div>
               {% if category == 'success' %}
-                <a href="{{ url_for('bp_auth.index')}}" class="btn btn-lg btn-primary btn-block mb-3">Faça login</a>
+                <a href="{{ url_for('bp_auth.index')}}" class="btn btn-lg btn-primary btn-block mb-3">Fazer login</a>
               {% endif %}
             {% endfor %}
           {% endif %}
@@ -47,7 +48,7 @@
           <div class="mb-3">
             <label for="senha">Crie uma senha</label>
             <input type="password" name="senha" class="form-control mb-3" id="email" placeholder="Senha">
-            <input type="password" name="confir-senha" class="form-control" id="email" placeholder="Confirmar senha">
+            <input type="password" name="confirmar-senha" class="form-control" id="email" placeholder="Confirmar senha">
             <small id="emailHelp" class="form-text text-muted">Sua senha deve conter de 6 a 8 caracteres.</small>
           </div>
 
@@ -63,9 +64,23 @@
         <hr class="mb-4 mt-4">
         <p class="text-center text-muted">Já possui conta? faça login.</p>
         <a href="{{ url_for('bp_auth.index')}}" class="btn btn-lg btn-primary btn-block">Fazer login</a>
-        <p class="mt-5 text-muted text-center">© 2020 Sistemas de produtos Fabricio Patrocinio</p>
-        <p class="mb-5 text-muted text-center font-italic">Icones usados de <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a></p>
       </div>
+      <footer class="p-5">
+          <p class="text-muted text-center">© 2020 Sistemas de produtos Fabricio Patrocinio</p>
+          <div class="d-flex justify-content-center">
+              <a href="" class="ml-3 mr-3 icons-social">
+              <img src="{{ url_for('static', filename='img/icons/facebook.png') }}" alt="">
+              </a>
+              <a href="" class="ml-3 mr-3 icons-social">
+              <img src="{{ url_for('static', filename='img/icons/instagram.png') }}" alt="">
+              </a>
+              <a href="" class="ml-3 mr-3 icons-social">
+              <img src="{{ url_for('static', filename='img/icons/github.png') }}" alt="">
+              </a>
+          </div>
+          <p class="text-muted text-center mt-2"><small class="text-muted">Todo o projeto do sistema no meu Github</small></p>
+          <p class="text-muted text-center mt-2"><small class="text-muted">Icones usados de <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a></small></p>
+      </footer>
     </div>
 
     <!-- Optional JavaScript -->
