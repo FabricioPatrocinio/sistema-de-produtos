@@ -13,12 +13,12 @@ from . import bp_produtos
 def sistema_produtos():
     title = 'Sistema de produtos'
     
-    user_id = session["user_id"]
+    user_id = current_user.id
     
-    # Gera a lista de categorias do <select> no HTML    
-    ref = Referencia.query.all()
-    fab = Fabricante.query.all()
-    tip = Tipo.query.all()
+    # Gera a lista de categorias do <select> no HTML 
+    ref = Referencia.query.filter_by(user_id=user_id).all()
+    fab = Fabricante.query.filter_by(user_id=user_id).all()
+    tip = Tipo.query.filter_by(user_id=user_id).all()
     
     return render_template('sistema-produtos.html', title=title, ref=ref, fab=fab, tip=tip)
 
@@ -34,23 +34,25 @@ def sistema_produtos_filtro(id):
     fab = Fabricante.query.filter_by(user_id=user_id).all()
     tip = Tipo.query.filter_by(user_id=user_id).all()
     
-    result = Produtos.query.filter(Produtos.referencia==id).all()    
+    result = Produtos.query.filter(Produtos.referencia==id).all()
     
-    return render_template('sistema-produtos.html', title=title, result=result, ref=ref, fab=fab, tip=tip, filtro=filtro)
+    return render_template('sistema-produtos.html', title=title, result=result, ref=ref, fab=fab, tip=tip, id=id)
 
 
 @bp_produtos.route('/adicionar-produtos', methods=['GET', 'POST'])
 def adicionar_produtos():
     title = 'Adicionar produtos'
     
-    # Gera a lista de categorias do <select> no HTML    
-    ref = Referencia.query.all()
-    fab = Fabricante.query.all()
-    tip = Tipo.query.all()    
+    user_id = current_user.id
+    
+    # Gera a lista de categorias do <select> no HTML 
+    ref = Referencia.query.filter_by(user_id=user_id).all()
+    fab = Fabricante.query.filter_by(user_id=user_id).all()
+    tip = Tipo.query.filter_by(user_id=user_id).all()   
     
     if request.method == 'POST' and request.form['cod'] != '' and request.form['referencia'] != '' and request.form['descricao'] != '' and request.form['tipo'] != '':
-        cod = request.form['cod']
         user_id = request.form['user']
+        cod = request.form['cod']
         descricao = request.form['descricao']
         complemento = request.form['complemento']
         referencia = request.form['referencia']
@@ -159,9 +161,12 @@ def adicionar_categorias():
 def editar_categorias():
     title = 'Editar categorias'
     
-    db_ref = Referencia.query.all()
-    db_fab = Fabricante.query.all()
-    db_tip = Tipo.query.all()
+    user_id = current_user.id
+    
+    # Gera a lista de categorias do <select> no HTML 
+    db_ref = Referencia.query.filter_by(user_id=user_id).all()
+    db_fab = Fabricante.query.filter_by(user_id=user_id).all()
+    db_tip = Tipo.query.filter_by(user_id=user_id).all()
     
     return render_template('editar-categorias.html', title=title, db_ref=db_ref, db_fab=db_fab, db_tip=db_tip)
 

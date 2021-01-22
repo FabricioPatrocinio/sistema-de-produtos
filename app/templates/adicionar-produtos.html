@@ -102,7 +102,7 @@
                 <label for="state">Referência</label>
                 <select class="custom-select d-block w-100" name="referencia" id="state" required="">
                 {% for ref in ref %}
-                <option value="{{ ref.nome }}">{{ ref.nome }}</option>
+                <option value="{{ ref.id }}">{{ ref.nome }}</option>
                 {% endfor %}
                 </select>
             </div>
@@ -111,7 +111,7 @@
                 <label for="state">Tipo</label>
                 <select class="custom-select d-block w-100" name="tipo" id="state" required="">
                 {% for tip in tip %}
-                <option value="{{ tip.nome }}">{{ tip.nome }}</option>
+                <option value="{{ tip.id }}">{{ tip.nome }}</option>
                 {% endfor %}
                 </select>
             </div>
@@ -134,7 +134,7 @@
                 <label for="country">Fabricante</label>
                 <select class="custom-select d-block w-100" name="fabricante" id="country" required="">
                 {% for fab in fab %}
-                <option value="{{ fab.nome }}">{{ fab.nome }}</option>
+                <option value="{{ fab.id }}">{{ fab.nome }}</option>
                 {% endfor %}
                 </select>
             </div>

@@ -1,5 +1,4 @@
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy.orm import relationship
 from flask_login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
 
@@ -56,7 +55,7 @@ class Referencia(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     nome = db.Column(db.String(30), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
-    produtos = db.relationship('Produtos', backref='referencia')
+    produtos = db.relationship('Produtos', backref='referencia_id')
     
     def __init__(self, nome, user_id):
         self.nome = nome
@@ -66,7 +65,7 @@ class Fabricante(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     nome = db.Column(db.String(30), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
-    produtos = db.relationship('Produtos', backref='fabricante')
+    produtos = db.relationship('Produtos', backref='fabricante_id')
     
     def __init__(self, nome, user_id):
         self.nome = nome
@@ -76,7 +75,7 @@ class Tipo(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     nome = db.Column(db.String(30), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
-    produtos = db.relationship('Produtos', backref='tipo')
+    produtos = db.relationship('Produtos', backref='tipo_id')
     
     def __init__(self, nome, user_id):
         self.nome = nome
