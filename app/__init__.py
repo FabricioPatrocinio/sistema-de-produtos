@@ -11,7 +11,7 @@ def create_app():
     
     app.config["CACHE_TYPE"] = "null"
     app.config['SECRET_KEY'] = 'fsdapiwquuuyqwi@uyasjah-986667655'
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:''@localhost:3306/sistema_produtos'
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:''@localhost:3306/sys_pro'
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     
     config_db(app)

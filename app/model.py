@@ -1,4 +1,5 @@
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy.orm import relationship
 from flask_login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
 
@@ -13,6 +14,7 @@ class Users(db.Model, UserMixin):
     nome = db.Column(db.String(50), nullable=False, unique=True)
     email = db.Column(db.String(100), nullable=False, unique=True)
     senha = db.Column(db.String(200), nullable=False)
+    produtos = db.relationship('Produtos', backref='users', lazy='True')
     
     def __init__(self, nome, email, senha):
         self.nome = nome
@@ -24,6 +26,7 @@ class Users(db.Model, UserMixin):
 
 class Produtos(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     cod = db.Column(db.Integer, nullable=True, unique=True)
     descricao = db.Column(db.String(50), nullable=False)
     complemento = db.Column(db.String(255))
@@ -34,7 +37,8 @@ class Produtos(db.Model):
     custo = db.Column(db.Integer, default=0)
     preco = db.Column(db.Integer, default=0)
     
-    def __init__(self, cod, descricao, complemento, referencia, fabricante, tipo, quant, custo, preco):
+    def __init__(self, user_id, cod, descricao, complemento, referencia, fabricante, tipo, quant, custo, preco):
+        self.user_id = user_id
         self.cod = cod
         self.descricao = descricao
         self.complemento = complemento
