@@ -1,4 +1,4 @@
-from flask import render_template, url_for, flash, request, redirect
+from flask import render_template, url_for, flash, request, redirect, session
 from flask_login import login_user, logout_user, login_required, current_user
 from app.model import Produtos, Referencia, Fabricante, Tipo
 from random import sample
@@ -13,6 +13,8 @@ from . import bp_produtos
 def sistema_produtos():
     title = 'Sistema de produtos'
     
+    user_id = session["user_id"]
+    
     # Gera a lista de categorias do <select> no HTML    
     ref = Referencia.query.all()
     fab = Fabricante.query.all()
@@ -21,16 +23,18 @@ def sistema_produtos():
     return render_template('sistema-produtos.html', title=title, ref=ref, fab=fab, tip=tip)
 
 
-@bp_produtos.route('/sistema-produtos/filtro/<filtro>', methods=['GET', 'POST'])
-def sistema_produtos_filtro(filtro):
+@bp_produtos.route('/sistema-produtos/filtro/<int:id>', methods=['GET', 'POST'])
+def sistema_produtos_filtro(id):
     title = 'Sistema de produtos'
     
-    # Gera a lista de categorias do <select> no HTML    
-    ref = Referencia.query.all()
-    fab = Fabricante.query.all()
-    tip = Tipo.query.all()
+    user_id = current_user.id
     
-    result = Produtos.query.filter(Produtos.referencia==filtro).all()
+    # Gera a lista de categorias do <select> no HTML 
+    ref = Referencia.query.filter_by(user_id=user_id).all()
+    fab = Fabricante.query.filter_by(user_id=user_id).all()
+    tip = Tipo.query.filter_by(user_id=user_id).all()
+    
+    result = Produtos.query.filter(Produtos.referencia==id).all()    
     
     return render_template('sistema-produtos.html', title=title, result=result, ref=ref, fab=fab, tip=tip, filtro=filtro)
 
@@ -116,7 +120,9 @@ def adicionar_categorias():
     
     if request.method == 'POST' and request.form['referencia'] != '':
         referencia = request.form['referencia']
-        ref = Referencia(referencia)
+        user_id = request.form['user']
+        
+        ref = Referencia(referencia, user_id)
         
         db.session.add(ref)
         db.session.commit()
@@ -124,7 +130,9 @@ def adicionar_categorias():
 
     elif request.method == 'POST' and request.form['fabricante'] != '':
         fabricante = request.form['fabricante']
-        fab = Fabricante(fabricante)
+        user_id = request.form['user']
+        
+        fab = Fabricante(fabricante, user_id)
         
         db.session.add(fab)
         db.session.commit()
@@ -132,7 +140,9 @@ def adicionar_categorias():
 
     elif request.method == 'POST' and request.form['tipo'] != '':
         tipo = request.form['tipo']
-        tip = Tipo(tipo)
+        user_id = request.form['user']
+        
+        tip = Tipo(tipo, user_id)
         
         db.session.add(tip)
         db.session.commit()

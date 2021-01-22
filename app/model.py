@@ -15,6 +15,9 @@ class Users(db.Model, UserMixin):
     email = db.Column(db.String(100), nullable=False, unique=True)
     senha = db.Column(db.String(200), nullable=False)
     produtos = db.relationship('Produtos', backref='users')
+    referencia = db.relationship('Referencia', backref='users')
+    fabricante = db.relationship('Fabricante', backref='users')
+    tipo = db.relationship('Tipo', backref='users')
     
     def __init__(self, nome, email, senha):
         self.nome = nome
@@ -30,9 +33,9 @@ class Produtos(db.Model):
     cod = db.Column(db.Integer, nullable=True, unique=True)
     descricao = db.Column(db.String(50), nullable=False)
     complemento = db.Column(db.String(255))
-    referencia = db.Column(db.String(50))
-    fabricante = db.Column(db.String(50))
-    tipo = db.Column(db.String(50))
+    referencia = db.Column(db.Integer, db.ForeignKey('referencia.id'))
+    fabricante = db.Column(db.Integer, db.ForeignKey('fabricante.id'))
+    tipo = db.Column(db.Integer, db.ForeignKey('tipo.id'))
     quant = db.Column(db.Integer, default=0)
     custo = db.Column(db.Integer, default=0)
     preco = db.Column(db.Integer, default=0)
@@ -52,20 +55,29 @@ class Produtos(db.Model):
 class Referencia(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     nome = db.Column(db.String(30), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    produtos = db.relationship('Produtos', backref='referencia')
     
-    def __init__(self, nome):
+    def __init__(self, nome, user_id):
         self.nome = nome
+        self.user_id = user_id
 
 class Fabricante(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     nome = db.Column(db.String(30), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    produtos = db.relationship('Produtos', backref='fabricante')
     
-    def __init__(self, nome):
+    def __init__(self, nome, user_id):
         self.nome = nome
+        self.user_id = user_id
 
 class Tipo(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     nome = db.Column(db.String(30), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    produtos = db.relationship('Produtos', backref='tipo')
     
-    def __init__(self, nome):
+    def __init__(self, nome, user_id):
         self.nome = nome
+        self.user_id = user_id
