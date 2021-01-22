@@ -46,6 +46,7 @@ def adicionar_produtos():
     
     if request.method == 'POST' and request.form['cod'] != '' and request.form['referencia'] != '' and request.form['descricao'] != '' and request.form['tipo'] != '':
         cod = request.form['cod']
+        user_id = request.form['user']
         descricao = request.form['descricao']
         complemento = request.form['complemento']
         referencia = request.form['referencia']
@@ -55,7 +56,7 @@ def adicionar_produtos():
         custo = request.form['custo']
         preco = request.form['preco']
         
-        produtos = Produtos(cod, descricao, complemento, referencia, fabricante, tipo, quant, custo, preco)
+        produtos = Produtos(user_id, cod, descricao, complemento, referencia, fabricante, tipo, quant, custo, preco)
         
         db.session.add(produtos)
         db.session.commit()

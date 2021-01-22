@@ -18,19 +18,23 @@ def index():
         nome = request.form['nome']
         senha = request.form['senha']
         
-        user = Users.query.filter_by(nome=nome).first()
-        
-        if not user or not user.verify_password(senha):
-            if not user:
-                flash('Seu nome de usuário não existe ou está incorreto.', 'danger')
+        try:
+            user = Users.query.filter_by(nome=nome).first()
             
-            if user and not user.verify_password(senha):
-                flash('Sua senha está incorreta.', 'danger')
+            if not user or not user.verify_password(senha):
+                if not user:
+                    flash('Seu nome de usuário não existe ou está incorreto.', 'danger')
+                
+                if user and not user.verify_password(senha):
+                    flash('Sua senha está incorreta.', 'danger')
+                
+                return redirect(url_for('bp_auth.index'))
             
-            return redirect(url_for('bp_auth.index'))
-        
-        login_user(user)
-        return  redirect(url_for('bp_produtos.sistema_produtos'))
+            login_user(user)
+            return  redirect(url_for('bp_produtos.sistema_produtos'))
+        except IntegrityError:
+            db.session.rollback()
+            flash('Erro no base de dados.', 'danger')
     
     return render_template('home.html', title=title)
 

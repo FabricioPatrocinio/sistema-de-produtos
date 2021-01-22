@@ -14,7 +14,7 @@ class Users(db.Model, UserMixin):
     nome = db.Column(db.String(50), nullable=False, unique=True)
     email = db.Column(db.String(100), nullable=False, unique=True)
     senha = db.Column(db.String(200), nullable=False)
-    produtos = db.relationship('Produtos', backref='users', lazy='True')
+    produtos = db.relationship('Produtos', backref='users')
     
     def __init__(self, nome, email, senha):
         self.nome = nome
