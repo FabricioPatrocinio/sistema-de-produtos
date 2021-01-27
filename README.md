@@ -47,6 +47,9 @@ Aqui estão alguns dos principais
 - [x] /sistema-produtos/filtro/<filtro>
 - [ ] Brevemente mais
 
+### Erros a resolver
+- sqlalchemy.exc.IntegrityError (No caso o COD deve ser unico, usar try para tratar o erro)
+
 ### Alterar cores bootstrap 4 usando SASS
 Comando:
 ```

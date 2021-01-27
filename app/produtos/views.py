@@ -1,11 +1,11 @@
-from flask import render_template, url_for, flash, request, redirect, session
+from flask import render_template, url_for, flash, request, redirect
 from flask_login import login_user, logout_user, login_required, current_user
 from app.model import Produtos, Referencia, Fabricante, Tipo
+from sqlalchemy.exc import IntegrityError
 from random import sample
-# Tentar entender o porque precisei chamar essse db
 from app.model import db
 from . import bp_produtos
-# Usar o serializer pro banco se comunicar com json e usar json pra salvar dados
+# Usar o serializer pro banco se comunicar com json
 # from app.serealizer import ProdutosSchema, UsersSchema
 
 
@@ -62,12 +62,16 @@ def adicionar_produtos():
         custo = request.form['custo']
         preco = request.form['preco']
         
-        produtos = Produtos(user_id, cod, descricao, complemento, referencia, fabricante, tipo, quant, custo, preco)
-        
-        db.session.add(produtos)
-        db.session.commit()
-        
-        flash('Produto adicionado com sucesso', 'success')
+        try:
+            produtos = Produtos(user_id, cod, descricao, complemento, referencia, fabricante, tipo, quant, custo, preco)
+            
+            db.session.add(produtos)
+            db.session.commit()
+            
+            flash('Produto adicionado com sucesso', 'success')
+        except IntegrityError:
+            db.session.rollback()
+            flash('Já existe um produto com esse codigo, por favor use outro.', 'danger')
     else:
         if request.method == 'POST':
             flash('Erro ao adicionar produtos, por favor insira todos os dados corretamente.', 'danger')
@@ -76,7 +80,8 @@ def adicionar_produtos():
 
 
 @bp_produtos.route('/deletar/produto/<int:id>', methods=['GET', 'POST'])
-def deletar(id):    
+def deletar(id):
+    # Depois usar o user_id por segurança
     result = Produtos.query.filter_by(id=id).first()
     
     db.session.delete(result)
@@ -111,10 +116,34 @@ def alterar(id):
 @bp_produtos.route('/produtos-em-falta', methods=['GET', 'POST'])
 def produtos_em_falta():
     title = 'Produtos em falta'
-    # Pega produtos com quantidade igual a ZERO
-    result = Produtos.query.filter(db.or_((Produtos.quant <= 2))).all()
     
-    return render_template('produtos-em-falta.html', title=title, result=result)
+    user_id = current_user.id
+    
+    # Gera a lista de categorias do <select> no HTML 
+    ref = Referencia.query.filter_by(user_id=user_id).all()
+    fab = Fabricante.query.filter_by(user_id=user_id).all()
+    tip = Tipo.query.filter_by(user_id=user_id).all()
+    
+    return render_template('produtos-em-falta.html', title=title, ref=ref, fab=fab, tip=tip)
+
+
+@bp_produtos.route('/produtos-em-falta/filtrar/<int:id>', methods=['GET', 'POST'])
+def produtos_em_falta_filtrar(id):
+    title = 'Produtos em falta'
+    
+    user_id = current_user.id
+    
+    # Gera a lista de categorias do <select> no HTML 
+    ref = Referencia.query.filter_by(user_id=user_id).all()
+    fab = Fabricante.query.filter_by(user_id=user_id).all()
+    tip = Tipo.query.filter_by(user_id=user_id).all()
+    
+    # Pega produtos com quantidade igual a ZERO
+    result = Produtos.query.filter(db.or_((Produtos.referencia==id))).filter(Produtos.quant <= 2)
+    
+    # result = Produtos.query.filter(Produtos.referencia==id).all()
+    
+    return render_template('produtos-em-falta.html', title=title, result=result, ref=ref, fab=fab, tip=tip, id=id)
 
 
 @bp_produtos.route('/adicionar-categorias', methods=['GET', 'POST'])
@@ -169,6 +198,7 @@ def editar_categorias():
     db_tip = Tipo.query.filter_by(user_id=user_id).all()
     
     return render_template('editar-categorias.html', title=title, db_ref=db_ref, db_fab=db_fab, db_tip=db_tip)
+
 
 @bp_produtos.route('/deletar-categoria/<categoria>/<int:id>', methods=['GET', 'POST'])
 def deletar_categoria(categoria, id):
@@ -225,6 +255,6 @@ def alterar_categoria(categoria, id):
         db.session.commit()
         nome_cat = 'Tipo'
     
-    flash('Categoria '+ nome_cat + ' alterada com sucesso!', 'success')
+    flash('Categoria ' + nome_cat + ' alterada com sucesso!', 'success')
     
     return redirect(url_for('bp_produtos.editar_categorias'))

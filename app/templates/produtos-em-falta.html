@@ -12,6 +12,25 @@
     </div>
   </div>
   <h2 class="text-primary">Produtos em falta</h2>
+
+  <div class="dropdown btn-group btn-group-toggle">
+    <button class="btn btn-primary dropdown-toggle rounded-0" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      Filtrar por
+    </button>
+    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+      {% for ref in ref %}
+        <a class="dropdown-item" href="{{ url_for('bp_produtos.produtos_em_falta_filtrar', id=ref.id) }}">{{ ref.nome }}</a>
+      {% endfor %}
+    </div>
+    <div class="btn btn-success text-white">
+      {% for ref in ref%}
+        {% if ref.id == id%}
+        {{ ref.nome }}
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+
   <hr class="mb-4">
   <div class="table-responsive">
     <table class="table table-striped table-sm table-bordered table-hover">
@@ -30,9 +49,9 @@
         {% for p in result %}
         <tr>
           <td>{{ p.cod }}</td>
-          <td>{{ p.tipo }}</td>
+          <td>{{ p.tipo_id.nome }}</td>
           <td>{{ p.descricao }}</td>
-          <td>{{ p.fabricante }}</td>
+          <td>{{ p.fabricante_id.nome }}</td>
           <td class="text-center text-danger">{{ p.quant }}</td>
           <td>R$ {{ '%0.2f'|format(p.custo|float) }}</td>
           <td>R$ {{ '%0.2f'|format(p.preco|float) }}</td>

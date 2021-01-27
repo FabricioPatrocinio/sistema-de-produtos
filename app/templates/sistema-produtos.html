@@ -13,13 +13,20 @@
   </div>
   <h2 class="text-primary">Produtos</h2>
 
-  <div class="dropdown">
-    <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+  <div class="dropdown btn-group btn-group-toggle">
+    <button class="btn btn-primary dropdown-toggle rounded-0" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
       Filtrar por
     </button>
     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
       {% for ref in ref %}
         <a class="dropdown-item" href="{{ url_for('bp_produtos.sistema_produtos_filtro', id=ref.id) }}">{{ ref.nome }}</a>
+      {% endfor %}
+    </div>
+    <div class="btn btn-success text-white">
+      {% for ref in ref%}
+        {% if ref.id == id%}
+        {{ ref.nome }}
+        {% endif %}
       {% endfor %}
     </div>
   </div>
@@ -42,9 +49,9 @@
         {% for p in result %}
         <tr data-toggle="modal" data-target="#Modal{{ p.id }}">
           <td>{{ p.cod }}</td>
-          <td>{{ p.tipo }}</td>
+          <td>{{ p.tipo_id.nome }}</td>
           <td colspan="3">{{ p.descricao }}</td>
-          <td>{{ p.fabricante }}</td>
+          <td>{{ p.fabricante_id.nome }}</td>
           <td class="text-center">{{ p.quant }}</td>
           <td>R$ {{ '%0.2f'|format(p.custo|float) }}</td>
           <td>R$ {{ '%0.2f'|format(p.preco|float) }}</td>
@@ -78,6 +85,7 @@
                           <div class="col-md-8 mb-3">
                               <label for="state">Tipo</label>
                               <select class="custom-select d-block w-100" name="tipo" id="state" required="">
+                              <option value="{{ p.tipo_id.id }}">{{ p.tipo_id.nome }}</option>
                               {% for tip in tip %}
                               <option value="{{ tip.id }}">{{ tip.nome }}</option>
                               {% endfor %}
@@ -103,6 +111,7 @@
                           <div class="col-md-6 mb-3">
                               <label for="state">Referência</label>
                               <select class="custom-select d-block w-100" name="referencia" id="state" required="">
+                              <option value="{{ p.referencia_id.id }}">{{ p.referencia_id.nome }}</option>
                               {% for ref in ref %}
                               <option value="{{ ref.id }}">{{ ref.nome }}</option>
                               {% endfor %}
@@ -111,6 +120,7 @@
                           <div class="col-md-6 mb-3">
                               <label for="country">Fabricante</label>
                               <select class="custom-select d-block w-100" name="fabricante" id="country" required="">
+                              <option value="{{ p.fabricante_id.id }}">{{ p.fabricante_id.nome }}</option>
                               {% for fab in fab %}
                               <option value="{{ fab.id }}">{{ fab.nome }}</option>
                               {% endfor %}
