@@ -1,4 +1,4 @@
-# sistema-de-produtos
+# Sistema de produtos
 Criado por mim mesmo **Fabricio Patrocinio**
 Usando Python com Flask
 
