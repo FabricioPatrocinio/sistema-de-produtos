@@ -1,3 +1,4 @@
+from operator import length_hint
 from flask import render_template, url_for, flash, request, redirect
 from flask_login import login_user, logout_user, login_required, current_user
 from app.model import Produtos, Referencia, Fabricante, Tipo
@@ -7,7 +8,6 @@ from app.model import db
 from . import bp_produtos
 # Usar o serializer pro banco se comunicar com json
 # from app.serealizer import ProdutosSchema, UsersSchema
-
 
 @bp_produtos.route('/sistema-produtos')
 def sistema_produtos():
@@ -258,3 +258,28 @@ def alterar_categoria(categoria, id):
     flash('Categoria ' + nome_cat + ' alterada com sucesso!', 'success')
     
     return redirect(url_for('bp_produtos.editar_categorias'))
+
+
+@bp_produtos.route('/buscar', methods=['GET', 'POST'])
+def buscar():
+    title = 'Buscar'
+    
+    user_id = current_user.id
+    
+    # Gera a lista de categorias do <select> no HTML 
+    ref = Referencia.query.filter_by(user_id=user_id).all()
+    fab = Fabricante.query.filter_by(user_id=user_id).all()
+    tip = Tipo.query.filter_by(user_id=user_id).all()
+    
+    palavra = request.form['palavra']
+    buscar = "%{}%".format(palavra)
+    
+    result = Produtos.query.filter(Produtos.descricao.like(buscar)).all()
+    
+    tag = palavra
+    
+    if len(result) == 0:
+        flash('Nenhum resultado encontrado', 'danger')
+    
+    
+    return render_template('buscar.html', title=title, tag=tag, result=result, ref=ref, fab=fab, tip=tip)

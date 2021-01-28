@@ -32,40 +32,40 @@
 
           <div class="modal fade" id="Modal{{ ref.id }}{{ ref.nome }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
           <div class="modal-dialog" role="document">
-              <div class="modal-content">
-              <div class="modal-header bg-primary text-white">
-                  <h5 class="modal-title" id="exampleModalLabel">Editar referência</h5>
-                  <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                  </button>
-              </div>
-              <div class="modal-body">
-                  <form class="needs-validation" action="{{ url_for('bp_produtos.alterar_categoria', categoria="Referencia", id=ref.id) }}" method="post">
-                      {% with messages = get_flashed_messages(with_categories=true) %}
-                          {% if messages %}
-                              {% for category, message in messages %}
-                              <div class="alert alert-{{ category }}" role="alert">
-                                {{ message }}
-                              </div>
-                              {% endfor %}
-                          {% endif %}
-                      {% endwith %}
+            <div class="modal-content">
+            <div class="modal-header bg-primary text-white">
+                <h5 class="modal-title" id="exampleModalLabel">Editar referência</h5>
+                <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+              <form class="needs-validation" action="{{ url_for('bp_produtos.alterar_categoria', categoria="Referencia", id=ref.id) }}" method="post">
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                        {% for category, message in messages %}
+                        <div class="alert alert-{{ category }}" role="alert">
+                          {{ message }}
+                        </div>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
 
-                      <div class="row">
-                          <div class="col mb-3">
-                              <label for="country">Nome da referência</label>
-                              <input type="text" class="form-control" name="referencia" id="firstName" placeholder="Complemento" value="{{ ref.nome }}">
-                          </div>
-                      </div>
+                <div class="row">
+                    <div class="col mb-3">
+                        <label for="country">Nome da referência</label>
+                        <input type="text" class="form-control" name="referencia" id="firstName" placeholder="Complemento" value="{{ ref.nome }}">
+                    </div>
+                </div>
 
-                      <div class="modal-footer d-flex justify-content-between">
-                        <a href="{{ url_for('bp_produtos.deletar_categoria', categoria="Referencia", id=ref.id) }}" class="btn btn-danger">Deletar</a>
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-                        <button type="submit" class="btn btn-primary">Salvar alterações</button>
-                      </div>
-                  </form>
-              </div>
-              </div>
+                <div class="modal-footer d-flex justify-content-between">
+                  <a href="{{ url_for('bp_produtos.deletar_categoria', categoria="Referencia", id=ref.id) }}" class="btn btn-danger">Deletar</a>
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                  <button type="submit" class="btn btn-primary">Salvar alterações</button>
+                </div>
+              </form>
+            </div>
+            </div>
           </div>
           </div>
         </tr>
@@ -91,40 +91,40 @@
 
           <div class="modal fade" id="Modal{{ fab.id }}{{ fab.nome }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
           <div class="modal-dialog" role="document">
-              <div class="modal-content">
-              <div class="modal-header bg-primary text-white">
-                  <h5 class="modal-title" id="exampleModalLabel">Editar fabricante</h5>
-                  <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                  </button>
-              </div>
-              <div class="modal-body">
-                  <form class="needs-validation" action="{{ url_for('bp_produtos.alterar_categoria', categoria="Fabricante", id=fab.id) }}" method="post">
-                      {% with messages = get_flashed_messages(with_categories=true) %}
-                          {% if messages %}
-                              {% for category, message in messages %}
-                              <div class="alert alert-{{ category }}" role="alert">
-                                {{ message }}
-                              </div>
-                              {% endfor %}
-                          {% endif %}
-                      {% endwith %}
+            <div class="modal-content">
+            <div class="modal-header bg-primary text-white">
+                <h5 class="modal-title" id="exampleModalLabel">Editar fabricante</h5>
+                <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+              <form class="needs-validation" action="{{ url_for('bp_produtos.alterar_categoria', categoria="Fabricante", id=fab.id) }}" method="post">
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                        {% for category, message in messages %}
+                        <div class="alert alert-{{ category }}" role="alert">
+                          {{ message }}
+                        </div>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
 
-                      <div class="row">
-                          <div class="col mb-3">
-                              <label for="country">Nome do fabricante</label>
-                              <input type="text" class="form-control" name="fabricante" id="firstName" placeholder="Complemento" value="{{ fab.nome }}">
-                          </div>
-                      </div>
+                <div class="row">
+                    <div class="col mb-3">
+                        <label for="country">Nome do fabricante</label>
+                        <input type="text" class="form-control" name="fabricante" id="firstName" placeholder="Complemento" value="{{ fab.nome }}">
+                    </div>
+                </div>
 
-                      <div class="modal-footer d-flex justify-content-between">
-                        <a href="{{ url_for('bp_produtos.deletar_categoria', categoria="Fabricante", id=fab.id) }}" class="btn btn-danger">Deletar</a>
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-                        <button type="submit" class="btn btn-primary">Salvar alterações</button>
-                      </div>
-                  </form>
-              </div>
-              </div>
+                <div class="modal-footer d-flex justify-content-between">
+                  <a href="{{ url_for('bp_produtos.deletar_categoria', categoria="Fabricante", id=fab.id) }}" class="btn btn-danger">Deletar</a>
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                  <button type="submit" class="btn btn-primary">Salvar alterações</button>
+                </div>
+              </form>
+            </div>
+            </div>
           </div>
           </div>
         </tr>
@@ -158,30 +158,30 @@
                   </button>
               </div>
               <div class="modal-body">
-                  <form class="needs-validation" action="{{ url_for('bp_produtos.alterar_categoria', categoria="Tipo", id=tip.id) }}" method="post">
-                    {% with messages = get_flashed_messages(with_categories=true) %}
-                        {% if messages %}
-                            {% for category, message in messages %}
-                            <div class="alert alert-{{ category }}" role="alert">
-                              {{ message }}
-                            </div>
-                            {% endfor %}
-                        {% endif %}
-                    {% endwith %}
+                <form class="needs-validation" action="{{ url_for('bp_produtos.alterar_categoria', categoria="Tipo", id=tip.id) }}" method="post">
+                  {% with messages = get_flashed_messages(with_categories=true) %}
+                      {% if messages %}
+                          {% for category, message in messages %}
+                          <div class="alert alert-{{ category }}" role="alert">
+                            {{ message }}
+                          </div>
+                          {% endfor %}
+                      {% endif %}
+                  {% endwith %}
 
-                    <div class="row">
-                        <div class="col mb-3">
-                            <label for="country">Nome do tipo</label>
-                            <input type="text" class="form-control" name="tipo" id="firstName" placeholder="Complemento" value="{{ tip.nome }}">
-                        </div>
-                    </div>
+                  <div class="row">
+                      <div class="col mb-3">
+                          <label for="country">Nome do tipo</label>
+                          <input type="text" class="form-control" name="tipo" id="firstName" placeholder="Complemento" value="{{ tip.nome }}">
+                      </div>
+                  </div>
 
-                    <div class="modal-footer d-flex justify-content-between">
-                      <a href="{{ url_for('bp_produtos.deletar_categoria', categoria="Tipo", id=tip.id) }}" class="btn btn-danger">Deletar</a>
-                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-                      <button type="submit" class="btn btn-primary">Salvar alterações</button>
-                    </div>
-                  </form>
+                  <div class="modal-footer d-flex justify-content-between">
+                    <a href="{{ url_for('bp_produtos.deletar_categoria', categoria="Tipo", id=tip.id) }}" class="btn btn-danger">Deletar</a>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                    <button type="submit" class="btn btn-primary">Salvar alterações</button>
+                  </div>
+                </form>
               </div>
               </div>
           </div>

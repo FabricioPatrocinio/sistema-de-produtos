@@ -11,25 +11,8 @@
       </div>
     </div>
   </div>
-  <h2 class="text-primary">Produtos</h2>
-
-  <div class="dropdown btn-group btn-group-toggle">
-    <button class="btn btn-primary dropdown-toggle rounded-0" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-      Filtrar por
-    </button>
-    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-      {% for ref in ref %}
-        <a class="dropdown-item" href="{{ url_for('bp_produtos.sistema_produtos_filtro', id=ref.id) }}">{{ ref.nome }}</a>
-      {% endfor %}
-    </div>
-    <div class="btn btn-success text-white">
-      {% for ref in ref%}
-        {% if ref.id == id%}
-        {{ ref.nome }}
-        {% endif %}
-      {% endfor %}
-    </div>
-  </div>
+  <h2 class="text-primary">Resultado da busca</h2>
+  <p class="text-muted text-center">Pesquisa relacionada a <strong>{{ tag }}</strong></p>
 
   <hr class="mb-4">
   <div class="table-responsive">
@@ -38,6 +21,7 @@
         <tr>
           <th>Codigo</th>
           <th>Tipo</th>
+          <th>Referência</th>
           <th colspan="3">Descrição</th>
           <th>Fabricante</th>
           <th>Quantidade</th>
@@ -50,6 +34,7 @@
         <tr data-toggle="modal" data-target="#Modal{{ p.id }}">
           <td>{{ p.cod }}</td>
           <td>{{ p.tipo_id.nome }}</td>
+          <td>{{ p.referencia_id.nome }}</td>
           <td colspan="3">{{ p.descricao }}</td>
           <td>{{ p.fabricante_id.nome }}</td>
           <td class="text-center">{{ p.quant }}</td>
@@ -67,15 +52,15 @@
             </div>
             <div class="modal-body">
               <form class="needs-validation" action="{{ url_for('bp_produtos.alterar', id=p.id) }}" method="post">
-                {% with messages = get_flashed_messages(with_categories=true) %}
-                    {% if messages %}
-                        {% for category, message in messages %}
-                        <div class="alert alert-{{ category }}" role="alert">
-                            {{ message }}
-                        </div>
-                        {% endfor %}
-                    {% endif %}
-                {% endwith %}
+                  {% with messages = get_flashed_messages(with_categories=true) %}
+                      {% if messages %}
+                          {% for category, message in messages %}
+                          <div class="alert alert-{{ category }}" role="alert">
+                              {{ message }}
+                          </div>
+                          {% endfor %}
+                      {% endif %}
+                  {% endwith %}
 
                 <div class="row">
                     <div class="col-md-4 mb-3">
@@ -157,22 +142,35 @@
         {% endfor %}
       </tbody>
     </table>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if  messages %}
+        {% for category, message in messages %}
+          <div class="alert alert-{{ category }}" role="alert">
+            {{ message }}
+          </div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
   </div>
   <footer class="p-5">
     <p class="text-muted text-center">© 2020 Sistemas de produtos Fabricio Patrocinio</p>
     <div class="d-flex justify-content-center">
-        <a href="" class="ml-3 mr-3 icons-social">
-        <img src="{{ url_for('static', filename='img/icons/facebook.png') }}" alt="">
-        </a>
-        <a href="" class="ml-3 mr-3 icons-social">
-        <img src="{{ url_for('static', filename='img/icons/instagram.png') }}" alt="">
-        </a>
-        <a href="" class="ml-3 mr-3 icons-social">
-        <img src="{{ url_for('static', filename='img/icons/github.png') }}" alt="">
-        </a>
+      <a href="" class="ml-3 mr-3 icons-social">
+      <img src="{{ url_for('static', filename='img/icons/facebook.png') }}" alt="">
+      </a>
+      <a href="" class="ml-3 mr-3 icons-social">
+      <img src="{{ url_for('static', filename='img/icons/instagram.png') }}" alt="">
+      </a>
+      <a href="" class="ml-3 mr-3 icons-social">
+      <img src="{{ url_for('static', filename='img/icons/github.png') }}" alt="">
+      </a>
     </div>
-    <p class="text-muted text-center mt-2"><small class="text-muted">Todo o projeto do sistema no meu Github</small></p>
-    <p class="text-muted text-center mt-2"><small class="text-muted">Icones usados de <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a></small></p>
+    <p class="text-muted text-center mt-2">
+    <small class="text-muted">Todo o projeto do sistema no meu Github</small>
+    </p>
+    <p class="text-muted text-center mt-2">
+    <small class="text-muted">Icones usados de <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a></small>
+    </p>
   </footer>
 </main> 
 {% endblock body  %}

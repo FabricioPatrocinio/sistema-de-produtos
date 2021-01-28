@@ -54,8 +54,8 @@
             </div>
           </li>
         </ul>
-        <form class="form-inline my-2 my-lg-0">
-          <input class="form-control mr-sm-2" type="search" placeholder="Buscar" aria-label="Search">
+        <form class="form-inline my-2 my-lg-0" method="post" action="{{ url_for('bp_produtos.buscar', palavra=palavra) }}">
+          <input class="form-control mr-sm-2" name="palavra" type="search" placeholder="Buscar" aria-label="Search">
           <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Buscar</button>
         </form>
       </div>
@@ -106,9 +106,6 @@
 
             <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
               <span>Banco de dados</span>
-              <a class="d-flex align-items-center text-muted" href="#">
-                <img src="{{ url_for('static', filename='img/icons/database.svg') }}" class="menu-ico" alt="">
-              </a>
             </h6>
             <ul class="nav flex-column mb-2">
               <li class="nav-item">

@@ -12,71 +12,71 @@
     </div>
 </div>
     <div class="container">
-        <div class="d-flex justify-content-between">
-            <div>
-                <h2 class="text-primary text-left">Adicionar produtos</h2>
-            </div>
-            <div>
-                <!-- Button trigger modal -->
-                <button type="button" class="btn btn-primary text-white" data-toggle="modal" data-target="#exampleModal">
-                Nova Categorias
+    <div class="d-flex justify-content-between">
+    <div>
+        <h2 class="text-primary text-left">Adicionar produtos</h2>
+    </div>
+    <div>
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-primary text-white" data-toggle="modal" data-target="#exampleModal">
+        Nova Categorias
+        </button>
+
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+            <div class="modal-header bg-primary text-white">
+                <h5 class="modal-title" id="exampleModalLabel">Adicionar categorias</h5>
+                <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
                 </button>
+            </div>
+            <div class="modal-body">
+                <form class="needs-validation" action="{{ url_for('bp_produtos.adicionar_categorias') }}" method="post">
+                    {% with messages = get_flashed_messages(with_categories=true) %}
+                        {% if messages %}
+                            {% for category, message in messages %}
+                            <div class="alert alert-{{ category }}" role="alert">
+                                {{ message }}
+                            </div>
+                            {% endfor %}
+                        {% endif %}
+                    {% endwith %}
+                    <input type="hidden" name="user" value="{{ current_user.id }}"> 
 
-                <!-- Modal -->
-                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                    <div class="modal-header bg-primary text-white">
-                        <h5 class="modal-title" id="exampleModalLabel">Adicionar categorias</h5>
-                        <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                        </button>
+                    <div class="row">
+                        <div class="col mb-3">
+                            <label for="firstName">Referência</label>
+                            <input type="text" class="form-control" name="referencia" id="firstName" placeholder="Referência" value="">
+                        </div>
                     </div>
-                    <div class="modal-body">
-                        <form class="needs-validation" action="{{ url_for('bp_produtos.adicionar_categorias') }}" method="post">
-                            {% with messages = get_flashed_messages(with_categories=true) %}
-                                {% if messages %}
-                                    {% for category, message in messages %}
-                                    <div class="alert alert-{{ category }}" role="alert">
-                                        {{ message }}
-                                    </div>
-                                    {% endfor %}
-                                {% endif %}
-                            {% endwith %}
-                            <input type="hidden" name="user" value="{{ current_user.id }}"> 
 
-                            <div class="row">
-                                <div class="col mb-3">
-                                    <label for="firstName">Referência</label>
-                                    <input type="text" class="form-control" name="referencia" id="firstName" placeholder="Referência" value="">
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col mb-3">
-                                    <label for="firstName">Fabricante</label>
-                                    <input type="text" class="form-control" name="fabricante" id="firstName" placeholder="Fabricante" value="">
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col mb-3">
-                                    <label for="firstName">Tipo</label>
-                                    <input type="text" class="form-control" name="tipo" id="firstName" placeholder="Ex: Comum, Importado" value="">
-                                </div>
-                            </div>
-
-                            <div class="modal-footer d-flex justify-content-between">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-                                <button type="submit" class="btn btn-primary">Salvar categorias</button>
-                            </div>
-                        </form>
+                    <div class="row">
+                        <div class="col mb-3">
+                            <label for="firstName">Fabricante</label>
+                            <input type="text" class="form-control" name="fabricante" id="firstName" placeholder="Fabricante" value="">
+                        </div>
                     </div>
+
+                    <div class="row">
+                        <div class="col mb-3">
+                            <label for="firstName">Tipo</label>
+                            <input type="text" class="form-control" name="tipo" id="firstName" placeholder="Ex: Comum, Importado" value="">
+                        </div>
                     </div>
-                </div>
-                </div>
+
+                    <div class="modal-footer d-flex justify-content-between">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                        <button type="submit" class="btn btn-primary">Salvar categorias</button>
+                    </div>
+                </form>
+            </div>
             </div>
         </div>
+        </div>
+    </div>
+    </div>
     </div>
     <hr class="mb-4">
     <div>

@@ -14,10 +14,11 @@ pip install -r requirements.txt
 
 ## Banco de dados
 No banco de dados estou usando SQLAlchemy com Migrate. E todos os dados do banco se encotra na pasta _migrations_.
-Pra criar o banco basta rodar esse comando:
+Crie um banco de dados com nome **sys_pro** e rode no terminal esse comando:
 ```
 flask db upgrade
 ```
+Feito isso ele irá criar todas as tabelas no seu banco.
 
 ## Rodar o projeto
 Dentro da pasta raiz rode esse comando:
@@ -31,7 +32,7 @@ Para ver todas as rotas rode o comando:
 ```
 flask routes
 ```
-Aqui estão alguns dos principais
+Aqui estão alguns dos principais:
 - [x] /criar-conta
 - [x] /login (index)
 - [x] /logout
@@ -45,12 +46,13 @@ Aqui estão alguns dos principais
 - [x] /deletar-categoria/<categoria>/<id>
 - [x] /produtos-em-falta
 - [x] /sistema-produtos/filtro/<filtro>
+- [x] /buscar
 - [ ] Brevemente mais
 
-### Erros a resolver
-- sqlalchemy.exc.IntegrityError (No caso o COD deve ser unico, usar try para tratar o erro)
+### Erros a resolver (pessoal)
+Estou usando isso para lista os erros que pretedo lidar mais na frente
 
-### Alterar cores bootstrap 4 usando SASS
+### Alterar cores bootstrap 4 usando SASS (pessoal)
 Comando:
 ```
 sass app/static/css/style.scss app/static/css/style.css (normal) 
