@@ -76,3 +76,12 @@ def criar_conta():
 def logout():
     logout_user()    
     return redirect(url_for('bp_auth.index'))
+
+
+@bp_auth.route('/perfil', methods=['GET', 'POST'])
+def perfil():
+    title = 'Perfil'
+    
+    user_id = current_user.id
+    
+    return render_template('perfil.html', title=title)

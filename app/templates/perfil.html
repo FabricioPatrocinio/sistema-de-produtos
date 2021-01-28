@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+<!-- Required meta tags -->
+<meta charset="utf-8">
+<meta name="theme-color" content="#5e60ce">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+{% if title %}
+    <title>{{ title }}</title>
+{% else %}
+    <title>Vazio</title>
+{% endif %}
+</head>
+<body>
+    <div class="container content-form mt-5">
+        <div class="text-center">
+            <img src="{{ url_for('static', filename='img/icons/user.png') }}" class="rounded" alt="">
+            <p class="text-dark text-center">
+                {% if current_user.nome %}
+                {{ current_user.nome }}
+                {% else %}
+                Nenhum usuario
+                {% endif %}
+            </p>
+        </div>
+    </div>
+
+    <footer class="p-5">
+        <p class="text-muted text-center">© 2020 Sistemas de produtos Fabricio Patrocinio</p>
+        <div class="d-flex justify-content-center">
+            <a href="" class="ml-3 mr-3 icons-social">
+            <img src="{{ url_for('static', filename='img/icons/facebook.png') }}" alt="">
+            </a>
+            <a href="" class="ml-3 mr-3 icons-social">
+            <img src="{{ url_for('static', filename='img/icons/instagram.png') }}" alt="">
+            </a>
+            <a href="" class="ml-3 mr-3 icons-social">
+            <img src="{{ url_for('static', filename='img/icons/github.png') }}" alt="">
+            </a>
+        </div>
+        <p class="text-muted text-center mt-2"><small class="text-muted">Todo o projeto do sistema no meu Github</small></p>
+        <p class="text-muted text-center mt-2"><small class="text-muted">Icones usados de <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a></small></p>
+    </footer>
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="{{ url_for('static', filename='node_modules/jquery/dist/jquery.min.js') }}" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="{{ url_for('static', filename='node_modules/popper.js/dist/popper.min.js') }}" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="{{ url_for('static', filename='node_modules/bootstrap/dist/js/bootstrap.min.js') }}" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+<!-- Icons -->
+<script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
+</body>
+</html>
