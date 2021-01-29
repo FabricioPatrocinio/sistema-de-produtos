@@ -13,15 +13,17 @@ class Users(db.Model, UserMixin):
     nome = db.Column(db.String(50), nullable=False, unique=True)
     email = db.Column(db.String(100), nullable=False, unique=True)
     senha = db.Column(db.String(200), nullable=False)
+    img_perfil = db.Column(db.String(255), nullable=True)
     produtos = db.relationship('Produtos', backref='users')
     referencia = db.relationship('Referencia', backref='users')
     fabricante = db.relationship('Fabricante', backref='users')
     tipo = db.relationship('Tipo', backref='users')
     
-    def __init__(self, nome, email, senha):
+    def __init__(self, nome, email, senha,img_perfil):
         self.nome = nome
         self.email = email
         self.senha = generate_password_hash(senha)
+        self.img_perfil = img_perfil
     
     def verify_password(self, pwd):
         return check_password_hash(self.senha, pwd)

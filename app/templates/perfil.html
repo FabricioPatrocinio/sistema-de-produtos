@@ -15,7 +15,7 @@
 <body>
     <div class="container content-form mt-5">
         <div class="text-center">
-            <img src="{{ url_for('static', filename='img/icons/user.png') }}" class="rounded" alt="">
+            <img src="{{ url_for('static', filename='img/icons/user.png') }}" class="rounded img-perfil" alt="">
             <p class="text-dark text-center">
                 {% if current_user.nome %}
                 {{ current_user.nome }}

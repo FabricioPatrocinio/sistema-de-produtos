@@ -5,8 +5,13 @@ from app.model import Users
 # Tentar entender o porque precisei chamar essse db
 from app.model import db
 from . import bp_auth
+import os
 # Usar o serializer pro banco se comunicar com json e usar json pra salvar dados
 # from app.serealizer import ProdutosSchema, UsersSchema
+
+# Caminho para o updload da imagem
+IMAGE_UPLOADS = '/home/f/my-dev-py/sys-pro/app/static/uploads/imagens/perfil/'
+ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'}
 
 # Index como login
 @bp_auth.route('/', methods=['GET', 'POST'])
@@ -39,6 +44,12 @@ def index():
     return render_template('home.html', title=title)
 
 
+# Função que verifica se é do tipo imagem
+def allowed_file(filename):
+    return '.' in filename and \
+        filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
+
 @bp_auth.route('/criar-conta', methods=['GET', 'POST'])
 def criar_conta():
     title = 'Criar Conta'
@@ -54,14 +65,28 @@ def criar_conta():
         
         try:
             if nome != '' and email != '' and senha != '':
-                if confirmar_senha == senha:
-                    conta = Users(nome, email, senha)
-                    db.session.add(conta)
-                    db.session.commit()
-                    
-                    flash('Sua conta foi criada com sucesso. Faça login!', 'success')
-                else:
-                    flash('Suas senhas não coincidem, por favor crie sua senha e confirme-a.', 'danger')
+                print('Aqui 1')
+                if request.files:
+                    image = request.files['img-perfil']
+                    print('Aqui 2')
+                    if image.filename != '':
+                        print('Aqui 3')
+                        
+                        if not allowed_file(image.filename):
+                            print('Aqui 4')
+                            flash('O arquivo precisa ser imagem do tipo PNG, JPG, JPEG ou GIF','danger')
+                            
+                        image.save(os.path.join(IMAGE_UPLOADS, image.filename))
+                        img_perfil = image.filename.time()
+                        
+                        if confirmar_senha == senha:
+                            conta = Users(nome, email, senha, img_perfil)
+                            db.session.add(conta)
+                            db.session.commit()
+                            
+                            flash('Sua conta foi criada com sucesso. Faça login!', 'success')
+                        else:
+                            flash('Suas senhas não coincidem, por favor crie sua senha e confirme-a.', 'danger')
             else:
                 flash('Você precisa preencher todos os dados.', 'danger')
         except IntegrityError:

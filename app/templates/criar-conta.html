@@ -22,7 +22,7 @@
 
       <div>
         <p class="text-danger">Preencha todos os dados com cuidado.</p>
-        <form class="needs-validation" action="{{ url_for('bp_auth.criar_conta') }}" method="post">
+        <form class="needs-validation" action="{{ url_for('bp_auth.criar_conta') }}" enctype="multipart/form-data" method="post">
         {% with messages = get_flashed_messages(with_categories=true) %}
           {% if  messages %}
             {% for category, message in messages %}
@@ -45,6 +45,8 @@
             <small id="emailHelp" class="form-text text-muted">O seu nome de usuário não pode ter espaços e letras maiúsculas. <br> Ex: <code>usuarionome, usuario-nome, usuario.nome</code></small>
           </div>
 
+          <input type="file" name="img-perfil" id="inputGroupFile01" accept="image/jpeg, image/jpg, image/png, image/gif" placeholder="Selecione uma foto de perfil">
+          
           <div class="mb-3">
             <label for="senha">Crie uma senha</label>
             <input type="password" name="senha" class="form-control mb-3" id="email" placeholder="Senha">
