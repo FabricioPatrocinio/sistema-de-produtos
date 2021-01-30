@@ -19,7 +19,7 @@ class Users(db.Model, UserMixin):
     fabricante = db.relationship('Fabricante', backref='users')
     tipo = db.relationship('Tipo', backref='users')
     
-    def __init__(self, nome, email, senha,img_perfil):
+    def __init__(self, nome, email, senha, img_perfil):
         self.nome = nome
         self.email = email
         self.senha = generate_password_hash(senha)

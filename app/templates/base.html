@@ -19,8 +19,8 @@
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-        <a class="navbar-brand text-muted" href="#">
-          <img src="{{ url_for('static', filename='img/icons/user.png') }}" alt="">
+        <a class="navbar-brand text-muted" href="{{ url_for('bp_auth.perfil') }}">
+          <img src="{{ url_for('static', filename='uploads/imagens/perfil/') }}{{ user.img_perfil }}" class="border border-dark rounded-circle img-perfil-base" alt="">
           {% if current_user.nome %}
             {{ current_user.nome }}
           {% else %}
@@ -29,21 +29,25 @@
         </a>
         <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
           <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Opções</a>
+            <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Menu opções</a>
             <div class="dropdown-menu" aria-labelledby="dropdown04">
-              <a class="dropdown-item" href="{{ url_for('bp_produtos.sistema_produtos') }}">
+              <a class="dropdown-item text-muted" href="{{ url_for('bp_auth.perfil') }}">
+                <img src="{{ url_for('static', filename='img/icons/hashtags.png') }}" class="menu-ico" alt="">
+                Perfil <span class="sr-only">(current)</span>
+              </a>
+              <a class="dropdown-item text-muted" href="{{ url_for('bp_produtos.sistema_produtos') }}">
                 <img src="{{ url_for('static', filename='img/icons/home.png') }}" class="menu-ico" alt="">
                 Inicio <span class="sr-only">(current)</span>
               </a>
-              <a class="dropdown-item" href="{{ url_for('bp_produtos.adicionar_produtos') }}">
+              <a class="dropdown-item text-muted" href="{{ url_for('bp_produtos.adicionar_produtos') }}">
                 <img src="{{ url_for('static', filename='img/icons/add.png') }}" class="menu-ico" alt="">                  
                 Adicionar produto
               </a>
-              <a class="dropdown-item" href="{{ url_for('bp_produtos.produtos_em_falta')}}">
+              <a class="dropdown-item text-muted" href="{{ url_for('bp_produtos.produtos_em_falta')}}">
                 <img src="{{ url_for('static', filename='img/icons/down-line-graphic.png') }}" class="menu-ico" alt="">
                 Produtos em falta
               </a>
-              <a class="dropdown-item" href="{{ url_for('bp_produtos.editar_categorias') }}">
+              <a class="dropdown-item text-muted" href="{{ url_for('bp_produtos.editar_categorias') }}">
                 <img src="{{ url_for('static', filename='img/icons/edit.png') }}" class="menu-ico" alt="">
                 Editar categorias
               </a>
@@ -67,6 +71,12 @@
           <div class="sidebar-sticky">
             <ul class="nav flex-column">
               <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('bp_auth.perfil') }}">
+                  <img src="{{ url_for('static', filename='img/icons/hashtags.png') }}" class="menu-ico" alt="">
+                  Perfil <span class="sr-only">(current)</span>
+                </a>
+              </li>
+              <li class="nav-item">
                 <a class="nav-link active" href="{{ url_for('bp_produtos.sistema_produtos') }}">
                   <img src="{{ url_for('static', filename='img/icons/home.png') }}" class="menu-ico" alt="">
                   Inicio <span class="sr-only">(current)</span>
@@ -76,18 +86,6 @@
                 <a class="nav-link" href="{{ url_for('bp_produtos.adicionar_produtos') }}">
                   <img src="{{ url_for('static', filename='img/icons/add.png') }}" class="menu-ico" alt="">                  
                   Adicionar produto
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">
-                  <img src="{{ url_for('static', filename='img/icons/delete.png') }}" class="menu-ico" alt="">
-                  Remover
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">
-                  <img src="{{ url_for('static', filename='img/icons/settings.png') }}" class="menu-ico" alt="">
-                  Configurações
                 </a>
               </li>
               <li class="nav-item">

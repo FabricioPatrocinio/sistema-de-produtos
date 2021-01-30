@@ -1,8 +1,10 @@
 $theme-colors: (
   "primary": #5390d9,
-  "success": #48bfe3,
+  "success": #64dfdf,
+  "secondary": #6d6875,
   "dark": #5e60ce,
-  "danger": #ef4363
+  "warning": #ffd858,
+  "danger": #e5989b
 );
 
 @import '../node_modules/bootstrap/scss/bootstrap.scss';
@@ -26,7 +28,7 @@ div.modal-content-width{
 }
 
 .menu-ico{
-    width: 25px;
+    width: 20px;
     padding-right: 5px;
 }
 
@@ -34,6 +36,10 @@ div.modal-content-width{
     width: 25px;
 }
 
+.img-perfil-base{
+    width: 50px;
+}
+
 .img-perfil{
-    width: 200px;
+    width: 100px;
 }

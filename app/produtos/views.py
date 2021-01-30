@@ -1,7 +1,7 @@
 from operator import length_hint
 from flask import render_template, url_for, flash, request, redirect
 from flask_login import login_user, logout_user, login_required, current_user
-from app.model import Produtos, Referencia, Fabricante, Tipo
+from app.model import Produtos, Referencia, Fabricante, Tipo, Users
 from sqlalchemy.exc import IntegrityError
 from random import sample
 from app.model import db
@@ -15,12 +15,14 @@ def sistema_produtos():
     
     user_id = current_user.id
     
+    user = Users.query.filter_by(id=user_id).first()
+    
     # Gera a lista de categorias do <select> no HTML 
     ref = Referencia.query.filter_by(user_id=user_id).all()
     fab = Fabricante.query.filter_by(user_id=user_id).all()
     tip = Tipo.query.filter_by(user_id=user_id).all()
     
-    return render_template('sistema-produtos.html', title=title, ref=ref, fab=fab, tip=tip)
+    return render_template('sistema-produtos.html', title=title, ref=ref, fab=fab, tip=tip, user=user)
 
 
 @bp_produtos.route('/sistema-produtos/filtro/<int:id>', methods=['GET', 'POST'])
@@ -29,6 +31,8 @@ def sistema_produtos_filtro(id):
     
     user_id = current_user.id
     
+    user = Users.query.filter_by(id=user_id).first()
+    
     # Gera a lista de categorias do <select> no HTML 
     ref = Referencia.query.filter_by(user_id=user_id).all()
     fab = Fabricante.query.filter_by(user_id=user_id).all()
@@ -36,7 +40,7 @@ def sistema_produtos_filtro(id):
     
     result = Produtos.query.filter(Produtos.referencia==id).all()
     
-    return render_template('sistema-produtos.html', title=title, result=result, ref=ref, fab=fab, tip=tip, id=id)
+    return render_template('sistema-produtos.html', title=title, user=user, result=result, ref=ref, fab=fab, tip=tip, id=id)
 
 
 @bp_produtos.route('/adicionar-produtos', methods=['GET', 'POST'])
@@ -44,6 +48,8 @@ def adicionar_produtos():
     title = 'Adicionar produtos'
     
     user_id = current_user.id
+    
+    user = Users.query.filter_by(id=user_id).first()
     
     # Gera a lista de categorias do <select> no HTML 
     ref = Referencia.query.filter_by(user_id=user_id).all()
@@ -76,7 +82,7 @@ def adicionar_produtos():
         if request.method == 'POST':
             flash('Erro ao adicionar produtos, por favor insira todos os dados corretamente.', 'danger')
     
-    return render_template('adicionar-produtos.html', title=title, ref=ref, fab=fab, tip=tip)
+    return render_template('adicionar-produtos.html', title=title, user=user, ref=ref, fab=fab, tip=tip)
 
 
 @bp_produtos.route('/deletar/produto/<int:id>', methods=['GET', 'POST'])
@@ -119,12 +125,14 @@ def produtos_em_falta():
     
     user_id = current_user.id
     
+    user = Users.query.filter_by(id=user_id).first()
+    
     # Gera a lista de categorias do <select> no HTML 
     ref = Referencia.query.filter_by(user_id=user_id).all()
     fab = Fabricante.query.filter_by(user_id=user_id).all()
     tip = Tipo.query.filter_by(user_id=user_id).all()
     
-    return render_template('produtos-em-falta.html', title=title, ref=ref, fab=fab, tip=tip)
+    return render_template('produtos-em-falta.html', title=title, user=user, ref=ref, fab=fab, tip=tip)
 
 
 @bp_produtos.route('/produtos-em-falta/filtrar/<int:id>', methods=['GET', 'POST'])
@@ -132,6 +140,8 @@ def produtos_em_falta_filtrar(id):
     title = 'Produtos em falta'
     
     user_id = current_user.id
+    
+    user = Users.query.filter_by(id=user_id).first()
     
     # Gera a lista de categorias do <select> no HTML 
     ref = Referencia.query.filter_by(user_id=user_id).all()
@@ -143,7 +153,7 @@ def produtos_em_falta_filtrar(id):
     
     # result = Produtos.query.filter(Produtos.referencia==id).all()
     
-    return render_template('produtos-em-falta.html', title=title, result=result, ref=ref, fab=fab, tip=tip, id=id)
+    return render_template('produtos-em-falta.html', title=title, user=user, result=result, ref=ref, fab=fab, tip=tip, id=id)
 
 
 @bp_produtos.route('/adicionar-categorias', methods=['GET', 'POST'])
@@ -192,12 +202,14 @@ def editar_categorias():
     
     user_id = current_user.id
     
+    user = Users.query.filter_by(id=user_id).first()
+    
     # Gera a lista de categorias do <select> no HTML 
     db_ref = Referencia.query.filter_by(user_id=user_id).all()
     db_fab = Fabricante.query.filter_by(user_id=user_id).all()
     db_tip = Tipo.query.filter_by(user_id=user_id).all()
     
-    return render_template('editar-categorias.html', title=title, db_ref=db_ref, db_fab=db_fab, db_tip=db_tip)
+    return render_template('editar-categorias.html', title=title, user=user, db_ref=db_ref, db_fab=db_fab, db_tip=db_tip)
 
 
 @bp_produtos.route('/deletar-categoria/<categoria>/<int:id>', methods=['GET', 'POST'])
@@ -266,6 +278,8 @@ def buscar():
     
     user_id = current_user.id
     
+    user = Users.query.filter_by(id=user_id).first()
+    
     # Gera a lista de categorias do <select> no HTML 
     ref = Referencia.query.filter_by(user_id=user_id).all()
     fab = Fabricante.query.filter_by(user_id=user_id).all()
@@ -282,4 +296,4 @@ def buscar():
         flash('Nenhum resultado encontrado', 'danger')
     
     
-    return render_template('buscar.html', title=title, tag=tag, result=result, ref=ref, fab=fab, tip=tip)
+    return render_template('buscar.html', title=title, user=user, tag=tag, result=result, ref=ref, fab=fab, tip=tip)

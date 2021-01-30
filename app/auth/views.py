@@ -65,15 +65,13 @@ def criar_conta():
         
         try:
             if nome != '' and email != '' and senha != '':
-                print('Aqui 1')
+                
                 if request.files:
                     image = request.files['img-perfil']
-                    print('Aqui 2')
+                    
                     if image.filename != '':
-                        print('Aqui 3')
                         
                         if not allowed_file(image.filename):
-                            print('Aqui 4')
                             flash('O arquivo precisa ser imagem do tipo PNG, JPG, JPEG ou GIF','danger')
                             
                         image.save(os.path.join(IMAGE_UPLOADS, image.filename))
@@ -109,4 +107,42 @@ def perfil():
     
     user_id = current_user.id
     
-    return render_template('perfil.html', title=title)
+    result = Users.query.filter_by(id=user_id)
+    
+    return render_template('perfil.html', title=title, result=result)
+
+
+@bp_auth.route('/alterar-perfil', methods=['GET', 'POST'])
+def alterar_perfil():
+    user_id = current_user.id
+    
+    user = Users.query.filter_by(id=user_id).first()
+    senha = request.form['senha']
+    
+    if user and not user.verify_password(senha):
+        flash('Sua senha está incorreta, tente novamente.', 'danger')
+        
+        return redirect(url_for('bp_auth.perfil'))
+    
+    user.nome = request.form['nome']
+    user.email = request.form['email']
+    
+    if request.files:
+        image = request.files['img-perfil']
+        
+        if image.filename != '':
+            
+            if not allowed_file(image.filename):
+                flash('O arquivo precisa ser imagem do tipo PNG, JPG, JPEG ou GIF','danger')
+                
+            image.save(os.path.join(IMAGE_UPLOADS, image.filename))
+            img_perfil = image.filename
+            
+            user.img_perfil = img_perfil
+
+    db.session.commit()
+    
+    flash('Perfil atualizado com sucesso', 'success')
+    
+    return redirect(url_for('bp_auth.perfil'))
+    
