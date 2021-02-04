@@ -75,7 +75,7 @@ def criar_conta():
                             flash('O arquivo precisa ser imagem do tipo PNG, JPG, JPEG ou GIF','danger')
                             
                         image.save(os.path.join(IMAGE_UPLOADS, image.filename))
-                        img_perfil = image.filename.time()
+                        img_perfil = image.filename
                         
                         if confirmar_senha == senha:
                             conta = Users(nome, email, senha, img_perfil)

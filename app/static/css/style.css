@@ -8570,6 +8570,11 @@ h3 {
   box-sizing: border-box;
 }
 
+img {
+  width: 100%;
+  height: auto;
+}
+
 div.content-form {
   max-width: 420px;
   padding: 15px;
@@ -8585,20 +8590,39 @@ div.modal-content-width {
 }
 
 .menu-ico {
-  width: 20px;
+  max-width: 20px;
   padding-right: 5px;
 }
 
 .icons-social {
-  width: 25px;
+  max-width: 25px;
 }
 
 .img-perfil-base {
-  width: 50px;
+  max-width: 50px;
 }
 
-.img-perfil {
-  width: 100px;
+.imagem-box {
+  width: 120px;
+  height: 120px;
+  overflow: hidden;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.imagem-perfil {
+  width: 120px;
+  height: 120px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+}
+
+.scroll {
+  height: 80vh;
+  overflow-y: scroll;
 }
 
 /*# sourceMappingURL=style.css.map */

@@ -19,7 +19,9 @@
         <hr class="mb-4">
         <form class="needs-validation" action="{{ url_for('bp_auth.alterar_perfil') }}" enctype="multipart/form-data" method="post">
             <div class="text-center">
-                <img src="{{ url_for('static', filename='uploads/imagens/perfil/') }}{{ user.img_perfil }}" class="border border-dark rounded-circle img-perfil" alt="">
+                <div class="imagem-box border border-dark rounded-circle">
+                    <img src="{{ url_for('static', filename='uploads/imagens/perfil/') }}{{ user.img_perfil }}" class="image-perfil">
+                </div>
                 <p class="text-dark font-weight-bold text-center mb-5">
                     {% if current_user.nome %}
                     {{ current_user.nome }}

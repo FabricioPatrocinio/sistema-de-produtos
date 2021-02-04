@@ -19,7 +19,8 @@
     <div>
         <!-- Button trigger modal -->
         <button type="button" class="btn btn-primary text-white" data-toggle="modal" data-target="#exampleModal">
-        Nova Categorias
+        <img src="{{ url_for('static', filename='img/icons/add.png') }}" class="menu-ico" alt="">                  
+        Adicionar categorias
         </button>
 
         <!-- Modal -->
@@ -145,11 +146,11 @@
             </div>
             <div class="col-md-3 mb-3">
                 <label for="firstName">Custo de compra</label>
-                <input type="number" class="form-control" name="custo" id="firstName" placeholder="R$ 0,00" value="" required="">
+                <input type="number" class="form-control" name="custo" id="firstName" step="any" step="0.01" placeholder="R$ 0.00" value="" required="">
             </div>
             <div class="col-md-3 mb-3">
                 <label for="firstName">Preço de venda</label>
-                <input type="number" class="form-control" name="preco" id="firstName" placeholder="R$ 0,00" value="" required="">
+                <input type="number" class="form-control" name="preco" id="firstName" step="any" step="0.01" placeholder="R$ 0,00" value="" required="">
             </div>
         </div>
         <button class="btn btn-success text-white btn-lg btn-block mt-4" type="submit">Adiconar Produto</button>

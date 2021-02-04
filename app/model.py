@@ -38,8 +38,8 @@ class Produtos(db.Model):
     fabricante = db.Column(db.Integer, db.ForeignKey('fabricante.id'))
     tipo = db.Column(db.Integer, db.ForeignKey('tipo.id'))
     quant = db.Column(db.Integer, default=0)
-    custo = db.Column(db.Integer, default=0)
-    preco = db.Column(db.Integer, default=0)
+    custo = db.Column(db.Numeric(10,2), default=0)
+    preco = db.Column(db.Numeric(10,2), default=0)
     
     def __init__(self, user_id, cod, descricao, complemento, referencia, fabricante, tipo, quant, custo, preco):
         self.user_id = user_id
