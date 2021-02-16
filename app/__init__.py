@@ -33,6 +33,9 @@ def create_app():
     from .produtos import bp_produtos
     app.register_blueprint(bp_produtos)
     
+    from .financeiro import bp_financeiro
+    app.register_blueprint(bp_financeiro)
+    
     # Para testes mobile, é preciso usar o IPV4 como host, use seu IPV4 no --host=(seu ip)
     # flask run --host=192.168.100.78 --port=5000
     return app

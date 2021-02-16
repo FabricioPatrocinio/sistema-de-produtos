@@ -79,11 +79,11 @@
 
                 <div class="row">
                     <div class="col-md-4 mb-3">
-                        <label for="firstName">Codigo</label>
+                        <label for="firstName"><small>Codigo</small></label>
                         <input type="number" class="form-control" name="cod" id="firstName" placeholder="" value="{{ p.cod }}">
                     </div>
                     <div class="col-md-8 mb-3">
-                        <label for="state">Tipo</label>
+                        <label for="state"><small>Tipo</small></label>
                         <select class="custom-select d-block w-100" name="tipo" id="state" required="">
                         <option value="{{ p.tipo_id.id }}">{{ p.tipo_id.nome }}</option>
                         {% for tip in tip %}
@@ -95,21 +95,21 @@
 
                 <div class="row">
                     <div class="col mb-3">
-                      <label for="country">Descrição</label>
+                      <label for="country"><small>Descrição</small></label>
                         <input type="text" class="form-control" name="descricao" id="firstName" placeholder="Descrição" value="{{ p.descricao }}">
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="col mb-3">
-                        <label for="country">Complemento</label>
+                        <label for="country"><small>Complemento</small></label>
                         <input type="text" class="form-control" name="complemento" id="firstName" placeholder="Complemento" value="{{ p.complemento }}">
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="col-md-6 mb-3">
-                        <label for="state">Referência</label>
+                        <label for="state"><small>Referência</small></label>
                         <select class="custom-select d-block w-100" name="referencia" id="state" required="">
                         <option value="{{ p.referencia_id.id }}">{{ p.referencia_id.nome }}</option>
                         {% for ref in ref %}
@@ -118,7 +118,7 @@
                         </select>
                     </div>
                     <div class="col-md-6 mb-3">
-                        <label for="country">Fabricante</label>
+                        <label for="country"><small>Fabricante</small></label>
                         <select class="custom-select d-block w-100" name="fabricante" id="country" required="">
                         <option value="{{ p.fabricante_id.id }}">{{ p.fabricante_id.nome }}</option>
                         {% for fab in fab %}
@@ -130,21 +130,21 @@
 
                 <div class="row">
                     <div class="col-md-4 mb-3">
-                        <label for="firstName">Quantidade</label>
+                        <label for="firstName"><small>Quantidade</small></label>
                         <input type="number" class="form-control" name="quant" id="firstName" placeholder="0" value="{{ p.quant }}">
                     </div>
                     <div class="col-md-4 mb-3">
-                        <label for="firstName">Custo</label>
+                        <label for="firstName"><small>Custo</small></label>
                         <input type="number" class="form-control" name="custo" id="firstName" step="any" step="0.01" placeholder="R$ 0.00" value="{{ p.custo }}">
                     </div>
                     <div class="col-md-4 mb-3">
-                        <label for="firstName">Preço</label>
+                        <label for="firstName"><small>Preço</small></label>
                         <input type="number" class="form-control" name="preco" id="firstName" step="any" step="0.01" placeholder="R$ 0.00" value="{{ p.preco }}">
                     </div>
                 </div>
 
                 <div class="modal-footer d-flex justify-content-between">
-                  <a href="{{ url_for('bp_produtos.deletar', id=p.id) }}" class="btn btn-danger">Deletar</a>
+                  <a href="{{ url_for('bp_produtos.deletar', id=p.id) }}" class="btn btn-danger text-white">Deletar</a>
                   <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
                   <button type="submit" class="btn btn-primary">Salvar alterações</button>
                 </div>

@@ -18,6 +18,11 @@ Crie um banco de dados com nome **sys_pro** e rode no terminal esse comando:
 ```
 flask db upgrade
 ```
+Caso não consiga criar o banco de dados, apague a pasta migrations e use:
+```
+flask db init
+flask db migrate
+```
 Feito isso ele irá criar todas as tabelas no seu banco.
 
 ## Rodar o projeto

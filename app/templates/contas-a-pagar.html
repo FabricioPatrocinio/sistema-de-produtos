@@ -1,0 +1,165 @@
+{% extends 'base.html' %}
+{% block body %}
+<main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+  <div class="chartjs-size-monitor" style="position: absolute; inset: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;">
+    <div class="chartjs-size-monitor-expand" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;">
+      <div style="position:absolute;width:1000000px;height:1000000px;left:0;top:0">
+      </div>
+    </div>
+    <div class="chartjs-size-monitor-shrink" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;">
+      <div style="position:absolute;width:200%;height:200%;left:0; top:0">
+      </div>
+    </div>
+  </div>
+  
+  <div class="container">
+    <div class="d-flex justify-content-between">
+    <div>
+        <h2 class="text-danger text-left">Contas a pagar</h2>
+    </div>
+    <div>
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-danger text-white" data-toggle="modal" data-target="#exampleModal">
+        <img src="{{ url_for('static', filename='img/icons/add-red.png') }}" class="icone-button" alt="">                  
+        Adicionar conta
+        </button>
+
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+            <div class="modal-header bg-danger text-white">
+                <h5 class="modal-title" id="exampleModalLabel">Adicionar conta a pagar</h5>
+                <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form class="needs-validation" action="{{ url_for('bp_financeiro.contas_a_pagar', data=data) }}" method="post">
+                    {% with messages = get_flashed_messages(with_categories=true) %}
+                        {% if messages %}
+                            {% for category, message in messages %}
+                            <div class="alert alert-{{ category }}" role="alert">
+                                {{ message }}
+                            </div>
+                            {% endfor %}
+                        {% endif %}
+                    {% endwith %}
+                    <input type="hidden" name="user" value="{{ current_user.id }}"> 
+
+                    <div class="row mt-3">
+                        <div class="col mb-2">
+                            <input type="text" class="form-control" name="devedor" id="firstName" placeholder="Nome da conta" value="" required="">
+                        </div>
+                        <div class="col mb-2">
+                            <input type="number" class="form-control" name="valor" id="firstName" step="any" step="0.01" placeholder="R$ 0,00" value="" required="">
+                        </div>
+                    </div>
+
+                    <div class="row mt-3">
+                        <div class="col mb-3">
+                            <input type="text" class="form-control" name="complemento" id="firstName" placeholder="Complemento" value="">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col mb-3 input-group date datepicker" data-provide="datepicker" data-date-format="yyyy-mm-dd">
+                          <input name="data_conta" class="form-control" value="{{ hoje }}" placeholder="00/00/0000">
+                          <div class="input-group-prepend">
+                            <span class="input-group-text bg-danger rounded-right" id="inputGroup-sizing-default">
+                            <img src="{{ url_for('static', filename='img/icons/calendar.png') }}" class="icone-input" alt="">
+                            </span>
+                          </div>
+                        </div>
+                        <div class="col mb-3">
+                        <small class="form-text text-muted">A data deve ser no formato ano-mês-dia</small>
+                        </div>
+                    </div>
+
+                    <div class="d-flex justify-content-around mt-3 mb-3">
+                          <label class="container-radio text-danger">Não paga
+                            <img src="{{ url_for('static', filename='img/icons/meh.png') }}" class="icone-radio" alt="">
+                            <input type="radio" name="situacao" value="0" checked="checked">
+                            <span class="checkmark"></span>
+                          </label>
+                          <label class="container-radio text-primary">Paga
+                            <img src="{{ url_for('static', filename='img/icons/smile.png') }}" class="icone-radio" alt="">
+                            <input type="radio" name="situacao" value="1">
+                            <span class="checkmark"></span>
+                          </label>
+                    </div>
+
+                    <div class="modal-footer d-flex justify-content-between">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                        <button type="submit" class="btn btn-primary">Salvar</button>
+                    </div>
+                </form>
+            </div>
+            </div>
+        </div>
+        </div>
+    </div>
+    </div>
+  <hr class="mb-4">
+  {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+          {% for category, message in messages %}
+          <div class="alert alert-{{ category }}" role="alert">
+              {{ message }}
+          </div>
+          {% endfor %}
+      {% endif %}
+  {% endwith %}
+  </div>
+  <div class="table-responsive">
+    <table class="table table-hover">
+      <thead class="thead-light bg-danger text-white">
+        <tr>
+          <th>Nome</th>
+          <th>Complemento</th>
+          <th>Data</th>
+          <th>Valor</th>
+          <th>Situação</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for c in contas %}
+        <tr>
+          <td>{{ c.devedor }}</td>
+          <td>{{ c.complemento }}</td>
+          <td>{{ c.data_conta }}</td>
+          <td>R$ {{ '%0.2f'|format(c.valor|float) }}</td>
+          <td>
+          {% if c.situacao == 0 %}
+            <a href="{{ url_for('bp_financeiro.contas_situacao', id_conta=c.id, situacao=1) }}">Paga
+              <img src="{{ url_for('static', filename='img/icons/smile.png') }}" class="icone-radio" alt="">
+            </a>
+          {% else %}
+            <a href="{{ url_for('bp_financeiro.contas_situacao', id_conta=c.id, situacao=0) }}" class="text-danger">Não paga
+              <img src="{{ url_for('static', filename='img/icons/meh.png') }}" class="icone-radio" alt="">
+            </a>
+          {% endif %}
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  <footer class="p-5">
+    <p class="text-muted text-center">© 2020 Sistemas de produtos Fabricio Patrocinio</p>
+    <div class="d-flex justify-content-center">
+        <a href="" class="ml-3 mr-3 icons-social">
+        <img src="{{ url_for('static', filename='img/icons/facebook.png') }}" alt="">
+        </a>
+        <a href="" class="ml-3 mr-3 icons-social">
+        <img src="{{ url_for('static', filename='img/icons/instagram.png') }}" alt="">
+        </a>
+        <a href="" class="ml-3 mr-3 icons-social">
+        <img src="{{ url_for('static', filename='img/icons/github.png') }}" alt="">
+        </a>
+    </div>
+    <p class="text-muted text-center mt-2"><small class="text-muted">Todo o projeto do sistema no meu Github</small></p>
+    <p class="text-muted text-center mt-2"><small class="text-muted">Icones usados de <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a></small></p>
+  </footer>
+</main> 
+{% endblock body  %}

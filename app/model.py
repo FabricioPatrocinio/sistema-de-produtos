@@ -1,5 +1,6 @@
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import UserMixin
+from datetime import datetime
 from werkzeug.security import generate_password_hash, check_password_hash
 
 db = SQLAlchemy()
@@ -7,6 +8,7 @@ db = SQLAlchemy()
 def configure(app):
     db.init_app(app)
     app.db = db
+
 
 class Users(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
@@ -18,6 +20,7 @@ class Users(db.Model, UserMixin):
     referencia = db.relationship('Referencia', backref='users')
     fabricante = db.relationship('Fabricante', backref='users')
     tipo = db.relationship('Tipo', backref='users')
+    contas = db.relationship('Contas', backref='users')
     
     def __init__(self, nome, email, senha, img_perfil):
         self.nome = nome
@@ -27,6 +30,7 @@ class Users(db.Model, UserMixin):
     
     def verify_password(self, pwd):
         return check_password_hash(self.senha, pwd)
+
 
 class Produtos(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
@@ -53,6 +57,7 @@ class Produtos(db.Model):
         self.custo = custo
         self.preco = preco
 
+
 class Referencia(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     nome = db.Column(db.String(30), nullable=False)
@@ -62,6 +67,7 @@ class Referencia(db.Model):
     def __init__(self, nome, user_id):
         self.nome = nome
         self.user_id = user_id
+
 
 class Fabricante(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
@@ -73,6 +79,7 @@ class Fabricante(db.Model):
         self.nome = nome
         self.user_id = user_id
 
+
 class Tipo(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     nome = db.Column(db.String(30), nullable=False)
@@ -82,3 +89,39 @@ class Tipo(db.Model):
     def __init__(self, nome, user_id):
         self.nome = nome
         self.user_id = user_id
+
+
+class Contas(db.Model):
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    devedor = db.Column(db.String(100), nullable=False)
+    complemento = db.Column(db.String(255), nullable=True)
+    data_conta = db.Column(db.DateTime, nullable=False)
+    valor = db.Column(db.Numeric(10, 2), nullable=False)
+    situacao = db.Column(db.Boolean, default=False, nullable=False)
+    
+    def __init__(self, user_id, devedor, complemento, data_conta, valor, situacao):
+        self.user_id = user_id
+        self.devedor = devedor
+        self.complemento = complemento
+        self.data_conta = data_conta
+        self.valor = valor
+        self.situacao = situacao
+
+
+class Fiado(db.Model):
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    nome = db.Column(db.String(100), nullable=False)
+    complemento = db.Column(db.String(255), nullable=True)
+    data_conta = db.Column(db.DateTime, nullable=False)
+    valor = db.Column(db.Numeric(10, 2), nullable=False)
+    situacao = db.Column(db.Boolean, default=False, nullable=False)
+    
+    def __init__(self, user_id, nome, complemento, data_conta, valor, situacao):
+        self.user_id = user_id
+        self.nome = nome
+        self.complemento = complemento
+        self.data_conta = data_conta
+        self.valor = valor
+        self.situacao = situacao

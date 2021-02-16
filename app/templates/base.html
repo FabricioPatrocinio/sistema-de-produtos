@@ -6,7 +6,12 @@
     <meta name="theme-color" content="#5e60ce">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
+    <!-- Meu css pessoal -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+    <!-- Calendario bootstrap datepicker -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='calendario/dist/css/bootstrap-datepicker3.min.css') }}">
+
     {% if title %}
         <title>{{ title }}</title>
     {% else %}
@@ -30,7 +35,7 @@
         <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Menu opções</a>
-            <div class="dropdown-menu pr-3" aria-labelledby="dropdown04">
+            <div class="dropdown-menu pr-4" aria-labelledby="dropdown04">
               <a class="dropdown-item text-muted" href="{{ url_for('bp_auth.perfil') }}">
                 <img src="{{ url_for('static', filename='img/icons/hashtags.png') }}" class="menu-ico" alt="">
                 Perfil <span class="sr-only">(current)</span>
@@ -51,7 +56,16 @@
                 <img src="{{ url_for('static', filename='img/icons/edit.png') }}" class="menu-ico" alt="">
                 Editar categorias
               </a>
-              <hr class="mb-2">
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item text-muted" href="{{ url_for('bp_financeiro.contas_a_pagar', data=data) }}">
+                <img src="{{ url_for('static', filename='img/icons/loan.png') }}" class="menu-ico" alt="">
+                Contas a pagar
+              </a>
+              <a class="dropdown-item text-muted" href="#">
+                <img src="{{ url_for('static', filename='img/icons/borrow.png') }}" class="menu-ico" alt="">
+                Contas a receber
+              </a>
+              <div class="dropdown-divider"></div>
               <a class="dropdown-item text-danger" href="{{ url_for('bp_auth.logout') }}">
               Sair da conta
               </a>
@@ -107,7 +121,7 @@
             </h6>
             <ul class="nav flex-column mb-2">
               <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="{{ url_for('bp_financeiro.contas_a_pagar', data=data) }}">
                   <img src="{{ url_for('static', filename='img/icons/loan.png') }}" class="menu-ico" alt="">
                   Contas a pagar
                 </a>
@@ -190,5 +204,9 @@
 
     <!-- Icons -->
     <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
+
+    <!-- Bootstrap datepicker -->
+    <script src="{{ url_for('static', filename='calendario/js/locales/bootstrap-datepicker.pt-BR.js') }}" charset="UTF-8"></script>
+    <script src="{{ url_for('static', filename='calendario/dist/js/bootstrap-datepicker.min.js') }}"></script>
   </body>
 </html>

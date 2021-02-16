@@ -3,18 +3,16 @@ from flask import render_template, url_for, flash, request, redirect
 from flask_login import login_user, logout_user, login_required, current_user
 from app.model import Produtos, Referencia, Fabricante, Tipo, Users
 from sqlalchemy.exc import IntegrityError
-from random import sample
 from app.model import db
 from . import bp_produtos
 # Usar o serializer pro banco se comunicar com json
 # from app.serealizer import ProdutosSchema, UsersSchema
 
-@bp_produtos.route('/sistema-produtos')
+@bp_produtos.route('/sistema-produtos/')
 def sistema_produtos():
     title = 'Sistema de produtos'
     
     user_id = current_user.id
-    
     user = Users.query.filter_by(id=user_id).first()
     
     # Gera a lista de categorias do <select> no HTML 
@@ -30,7 +28,6 @@ def sistema_produtos_filtro(id):
     title = 'Sistema de produtos'
     
     user_id = current_user.id
-    
     user = Users.query.filter_by(id=user_id).first()
     
     # Gera a lista de categorias do <select> no HTML 
@@ -43,12 +40,11 @@ def sistema_produtos_filtro(id):
     return render_template('sistema-produtos.html', title=title, user=user, result=result, ref=ref, fab=fab, tip=tip, id=id)
 
 
-@bp_produtos.route('/adicionar-produtos', methods=['GET', 'POST'])
+@bp_produtos.route('/adicionar-produtos/', methods=['GET', 'POST'])
 def adicionar_produtos():
     title = 'Adicionar produtos'
     
     user_id = current_user.id
-    
     user = Users.query.filter_by(id=user_id).first()
     
     # Gera a lista de categorias do <select> no HTML 
@@ -124,7 +120,6 @@ def produtos_em_falta():
     title = 'Produtos em falta'
     
     user_id = current_user.id
-    
     user = Users.query.filter_by(id=user_id).first()
     
     # Gera a lista de categorias do <select> no HTML 
@@ -140,7 +135,6 @@ def produtos_em_falta_filtrar(id):
     title = 'Produtos em falta'
     
     user_id = current_user.id
-    
     user = Users.query.filter_by(id=user_id).first()
     
     # Gera a lista de categorias do <select> no HTML 
@@ -201,7 +195,6 @@ def editar_categorias():
     title = 'Editar categorias'
     
     user_id = current_user.id
-    
     user = Users.query.filter_by(id=user_id).first()
     
     # Gera a lista de categorias do <select> no HTML 
@@ -272,12 +265,12 @@ def alterar_categoria(categoria, id):
     return redirect(url_for('bp_produtos.editar_categorias'))
 
 
-@bp_produtos.route('/buscar', methods=['GET', 'POST'])
-def buscar():
+@bp_produtos.route('/buscar/', methods=['GET', 'POST'])
+@bp_produtos.route('/buscar/<palavra>', methods=['GET', 'POST'])
+def buscar(palavra=None):
     title = 'Buscar'
     
     user_id = current_user.id
-    
     user = Users.query.filter_by(id=user_id).first()
     
     # Gera a lista de categorias do <select> no HTML 
@@ -296,4 +289,4 @@ def buscar():
         flash('Nenhum resultado encontrado', 'danger')
     
     
-    return render_template('buscar.html', title=title, user=user, tag=tag, result=result, ref=ref, fab=fab, tip=tip)
+    return render_template('buscar.html', title=title, palavra=palavra, user=user, tag=tag, result=result, ref=ref, fab=fab, tip=tip)

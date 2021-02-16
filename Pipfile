@@ -11,6 +11,9 @@ flask-login = "*"
 pymysql = "*"
 flask-marshmallow = "*"
 marshmallow-sqlalchemy = "*"
+flask-language = "*"
+flask-datepicker = "*"
+flask-bootstrap = "*"
 
 [dev-packages]
 

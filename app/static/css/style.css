@@ -8591,7 +8591,10 @@ div.modal-content-width {
 
 .menu-ico {
   max-width: 20px;
-  padding-right: 5px;
+}
+
+.icone-button {
+  max-width: 20px;
 }
 
 .icons-social {
@@ -8600,6 +8603,14 @@ div.modal-content-width {
 
 .img-perfil-base {
   max-width: 50px;
+}
+
+.icone-input {
+  max-width: 28px;
+}
+
+.icone-radio {
+  max-width: 25px;
 }
 
 .imagem-box {
@@ -8623,6 +8634,75 @@ div.modal-content-width {
 .scroll {
   height: 80vh;
   overflow-y: scroll;
+}
+
+/* ================================================================= */
+/* The container input radio */
+/* ================================================================= */
+.container-radio {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Hide the browser's default checkbox */
+.container-radio input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+/* Create a custom checkbox */
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 25px;
+  width: 25px;
+  background-color: #eee;
+}
+
+/* On mouse-over, add a grey background color */
+.container-radio:hover input ~ .checkmark {
+  background-color: #ccc;
+}
+
+/* When the checkbox is checked, add a blue background */
+.container-radio input:checked ~ .checkmark {
+  background-color: #5390d9;
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the checkmark when checked */
+.container-radio input:checked ~ .checkmark:after {
+  display: block;
+}
+
+/* Style the checkmark/indicator */
+.container-radio .checkmark:after {
+  left: 9px;
+  top: 5px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
 }
 
 /*# sourceMappingURL=style.css.map */
