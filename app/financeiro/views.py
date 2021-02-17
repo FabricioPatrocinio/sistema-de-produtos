@@ -11,18 +11,14 @@ from datetime import date
 
 
 @bp_financeiro.route('/contas-a-pagar/', methods=['GET', 'POST'])
-@bp_financeiro.route('/contas-a-pagar/<data>', methods=['GET', 'POST'])
-def contas_a_pagar(data=None):
+def contas_a_pagar():
     title = 'Contas a pagar'
     hoje = date.today().strftime('%Y-%m-%d')
-    ano_mes = date.today().strftime('%Y-%m')
     
     user_id = current_user.id
     user = Users.query.filter_by(id=user_id).first()
-    
-    # contas = Contas.query.filter_by(data_conta=data).all()
 
-    contas = Contas.query.filter(func.DATE(Contas.data_conta) == data)
+    contas = Contas.query.filter(func.DATE(Contas.data_conta) == hoje).filter_by(user_id=user.id)
     
     if request.method == 'POST' and request.form['devedor'] != '' and request.form['data_conta'] != '' and request.form['valor'] != '':
         user_id = request.form['user']
@@ -46,7 +42,22 @@ def contas_a_pagar(data=None):
         if request.method == 'POST':
             flash('Erro ao adicionar conta, por favor insira todos os dados corretamente.', 'danger')
     
-    return render_template('contas-a-pagar.html', title=title, contas=contas, user=user, data=data, hoje=hoje)
+    return render_template('contas-a-pagar.html', title=title, contas=contas, user=user, hoje=hoje)
+
+
+@bp_financeiro.route('/contas-a-pagar/filtrar/', methods=['GET', 'POST'])
+def contas_filtrar():
+    title = 'Contas a pagar filtrar'
+    hoje = date.today().strftime('%Y-%m-%d')
+    
+    user_id = current_user.id
+    user = Users.query.filter_by(id=user_id).first()
+    
+    if request.method == 'POST' and request.form['data_filtro'] != '':
+        data_filtro = request.form['data_filtro']
+        contas = Contas.query.filter(func.DATE(Contas.data_conta) == data_filtro).filter_by(user_id=user.id)
+    
+    return render_template('contas-a-pagar.html', title=title, contas=contas, user=user, hoje=hoje)
 
 
 @bp_financeiro.route('/contas/situacao/<int:id_conta>/<int:situacao>', methods=['GET', 'POST'])

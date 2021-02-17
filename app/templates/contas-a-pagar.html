@@ -35,7 +35,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form class="needs-validation" action="{{ url_for('bp_financeiro.contas_a_pagar', data=data) }}" method="post">
+                <form class="needs-validation" action="{{ url_for('bp_financeiro.contas_a_pagar', hoje=hoje) }}" method="post">
                     {% with messages = get_flashed_messages(with_categories=true) %}
                         {% if messages %}
                             {% for category, message in messages %}
@@ -101,6 +101,25 @@
     </div>
     </div>
   <hr class="mb-4">
+  <div class="d-flex justify-content-between">
+    <form class="form-inline" action="{{ url_for('bp_financeiro.contas_filtrar') }}" method="post">
+      <div class="form-group mx-sm-3 mb-2">
+        <div class="input-group date datepicker" data-provide="datepicker" data-date-format="yyyy-mm-dd">
+          <input name="data_filtro" class="form-control" value="{{ hoje }}" placeholder="00/00/0000">
+          <div class="input-group-prepend">
+            <span class="input-group-text bg-danger rounded-right" id="inputGroup-sizing-default">
+            <img src="{{ url_for('static', filename='img/icons/calendar.png') }}" class="icone-input" alt="">
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <div class="input-group mb-2">
+        <button type="submit" class="btn btn-danger text-white">Filtrar data</button>
+      </div>
+    </form>
+  </div>
+  <hr class="mb-4">
   {% with messages = get_flashed_messages(with_categories=true) %}
       {% if messages %}
           {% for category, message in messages %}
@@ -116,7 +135,6 @@
       <thead class="thead-light bg-danger text-white">
         <tr>
           <th>Nome</th>
-          <th>Complemento</th>
           <th>Data</th>
           <th>Valor</th>
           <th>Situação</th>
@@ -126,8 +144,7 @@
         {% for c in contas %}
         <tr>
           <td>{{ c.devedor }}</td>
-          <td>{{ c.complemento }}</td>
-          <td>{{ c.data_conta }}</td>
+          <td>{{ c.data_conta.strftime('%d/%m/%y') }}</td>
           <td>R$ {{ '%0.2f'|format(c.valor|float) }}</td>
           <td>
           {% if c.situacao == 0 %}

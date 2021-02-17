@@ -57,7 +57,7 @@
                 Editar categorias
               </a>
               <div class="dropdown-divider"></div>
-              <a class="dropdown-item text-muted" href="{{ url_for('bp_financeiro.contas_a_pagar', data=data) }}">
+              <a class="dropdown-item text-muted" href="{{ url_for('bp_financeiro.contas_a_pagar') }}">
                 <img src="{{ url_for('static', filename='img/icons/loan.png') }}" class="menu-ico" alt="">
                 Contas a pagar
               </a>
@@ -121,7 +121,7 @@
             </h6>
             <ul class="nav flex-column mb-2">
               <li class="nav-item">
-                <a class="nav-link" href="{{ url_for('bp_financeiro.contas_a_pagar', data=data) }}">
+                <a class="nav-link" href="{{ url_for('bp_financeiro.contas_a_pagar') }}">
                   <img src="{{ url_for('static', filename='img/icons/loan.png') }}" class="menu-ico" alt="">
                   Contas a pagar
                 </a>
