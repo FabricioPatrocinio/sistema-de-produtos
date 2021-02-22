@@ -73,7 +73,7 @@ def contas_situacao(id_conta, situacao):
 
 # =================================================================
 # Contas a receber
-@bp_financeiro.route('/contas-a-receber', methods=['GET', 'POST'])
+@bp_financeiro.route('/contas-a-receber/', methods=['GET', 'POST'])
 def contas_a_receber():
     title = 'Contas a receber'
     hoje = date.today().strftime('%Y-%m-%d')
@@ -81,7 +81,7 @@ def contas_a_receber():
     user_id = current_user.id
     user = Users.query.filter_by(id=user_id).first()
     
-    fiado = Fiado.query.filter_by(user_id=user_id).all()
+    fiados = Fiado.query.filter(func.DATE(Fiado.data_conta) == hoje).filter_by(user_id=user.id)
     
     if request.method == 'POST' and request.form['nome'] != '' and request.form['data_conta'] != '' and request.form['valor'] != '':
         user_id = request.form['user']
@@ -105,7 +105,7 @@ def contas_a_receber():
         if request.method == 'POST':
             flash('Erro ao adicionar conta, por favor insira todos os dados corretamente.', 'danger')
     
-    return render_template('contas-a-receber.html', title=title, fiado=fiado, user=user, hoje=hoje)
+    return render_template('contas-a-receber.html', title=title, fiados=fiados, user=user, hoje=hoje)
 
 
 @bp_financeiro.route('/contas-a-receber/filtrar/', methods=['GET', 'POST'])
@@ -118,9 +118,9 @@ def fiado_filtrar():
     
     if request.method == 'POST' and request.form['data_filtro'] != '':
         data_filtro = request.form['data_filtro']
-        fiado = Fiado.query.filter(func.DATE(Fiado.data_conta) == data_filtro).filter_by(user_id=user.id)
+        fiados = Fiado.query.filter(func.DATE(Fiado.data_conta) == data_filtro).filter_by(user_id=user.id)
     
-    return render_template('contas-a-receber.html', title=title, fiado=fiado, user=user, hoje=hoje)
+    return render_template('contas-a-receber.html', title=title, fiados=fiados, user=user, hoje=hoje)
 
 
 @bp_financeiro.route('/conta-a-receber/situacao/<int:id_conta>/<int:situacao>', methods=['GET', 'POST'])
