@@ -15,7 +15,7 @@
   <div class="container">
     <div class="d-flex justify-content-between">
     <div>
-        <h2 class="text-danger text-left">Contas a pagar</h2>
+        <h2 class="text-danger text-left">Contas a receber</h2>
     </div>
     <div>
         <!-- Button trigger modal -->
@@ -29,13 +29,13 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
             <div class="modal-header bg-danger text-white">
-                <h5 class="modal-title" id="exampleModalLabel">Adicionar conta a pagar</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Adicionar conta a receber</h5>
                 <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <form class="needs-validation" action="{{ url_for('bp_financeiro.contas_a_pagar') }}" method="post">
+                <form class="needs-validation" action="{{ url_for('bp_financeiro.contas_a_receber') }}" method="post">
                     {% with messages = get_flashed_messages(with_categories=true) %}
                         {% if messages %}
                             {% for category, message in messages %}
@@ -49,7 +49,7 @@
 
                     <div class="row mt-3">
                         <div class="col mb-2">
-                            <input type="text" class="form-control" name="devedor" id="firstName" placeholder="Nome da conta" value="" required="">
+                            <input type="text" class="form-control" name="nome" id="firstName" placeholder="Nome da conta" value="" required="">
                         </div>
                         <div class="col mb-2">
                             <input type="number" class="form-control" name="valor" id="firstName" step="any" step="0.01" placeholder="R$ 0,00" value="" required="">
@@ -63,7 +63,7 @@
                     </div>
 
                     <div class="row">
-                        <div class="col mb-3 input-group date datepicker" data-provide="datepicker" data-date-format="yyyy-mm-dd">
+                        <div class="col mb-4 input-group date datepicker" data-provide="datepicker" data-date-format="yyyy-mm-dd">
                           <input name="data_conta" class="form-control" value="{{ hoje }}" placeholder="00/00/0000">
                           <div class="input-group-prepend">
                             <span class="input-group-text bg-danger rounded-right" id="inputGroup-sizing-default">
@@ -71,7 +71,7 @@
                             </span>
                           </div>
                         </div>
-                        <div class="col mb-3">
+                        <div class="col mb-2">
                         <small class="form-text text-muted">A data deve ser no formato ano-mês-dia</small>
                         </div>
                     </div>
@@ -102,7 +102,7 @@
     </div>
   <hr class="mb-4">
   <div class="d-flex justify-content-between">
-    <form class="form-inline" action="{{ url_for('bp_financeiro.contas_filtrar') }}" method="post">
+    <form class="form-inline" action="{{ url_for('bp_financeiro.fiado_filtrar') }}" method="post">
       <div class="form-group mx-sm-3 mb-2">
         <div class="input-group date datepicker" data-provide="datepicker" data-date-format="yyyy-mm-dd">
           <input name="data_filtro" class="form-control" value="{{ hoje }}" placeholder="00/00/0000">
@@ -135,25 +135,27 @@
       <thead class="thead-light bg-danger text-white">
         <tr>
           <th>Nome</th>
+          <th>Complemento</th>
           <th>Data</th>
           <th>Valor</th>
           <th>Situação</th>
         </tr>
       </thead>
       <tbody>
-        {% for c in contas %}
+        {% for f in fiado %}
         <tr>
-          <td>{{ c.devedor }}</td>
-          <td>{{ c.data_conta.strftime('%d/%m/%y') }}</td>
-          <td>R$ {{ '%0.2f'|format(c.valor|float) }}</td>
+          <td>{{ f.nome }}</td>
+          <td>{{ f.complemento }}</td>
+          <td>{{ f.data_conta.strftime('%d/%m/%y') }}</td>
+          <td>R$ {{ '%0.2f'|format(f.valor|float) }}</td>
           <td>
-          {% if c.situacao == 0 %}
-            <a href="{{ url_for('bp_financeiro.contas_situacao', id_conta=c.id, situacao=1) }}">Paga
-              <img src="{{ url_for('static', filename='img/icons/smile.png') }}" class="icone-radio" alt="">
+          {% if f.situacao == 0 %}
+            <a href="{{ url_for('bp_financeiro.fiado_situacao', id_conta=f.id, situacao=1) }}" class="text-danger">Não paga
+              <img src="{{ url_for('static', filename='img/icons/meh.png') }}" class="icone-radio" alt="">
             </a>
           {% else %}
-            <a href="{{ url_for('bp_financeiro.contas_situacao', id_conta=c.id, situacao=0) }}" class="text-danger">Não paga
-              <img src="{{ url_for('static', filename='img/icons/meh.png') }}" class="icone-radio" alt="">
+            <a href="{{ url_for('bp_financeiro.fiado_situacao', id_conta=f.id, situacao=0) }}">Paga
+              <img src="{{ url_for('static', filename='img/icons/smile.png') }}" class="icone-radio" alt="">
             </a>
           {% endif %}
           </td>
